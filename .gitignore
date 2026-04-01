@@ -2,3 +2,5 @@ node_modules/
 temporary screenshots/
 .DS_Store
 *.local
+*.mp4
+*.mov
