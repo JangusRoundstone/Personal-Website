@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Augmented Rosyth — Wang Silang (William)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg: #F5F0E8; --bg-2: #EDE8DE; --bg-3: #E4DDCF; --ink: #181410; --ink-2: #6B6459; --ink-3: #A89F94; --accent: #C4622D; --accent-l: #D9845A; --gold: #B8924A; --border: #D5CFC4; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.7; cursor: none; overflow-x: hidden; }
+    #cursor { position: fixed; top: 0; left: 0; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease; mix-blend-mode: multiply; }
+    #cursor.expanded { width: 32px; height: 32px; opacity: 0.3; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1; opacity: 0.5; }
+    ::selection { background: var(--accent); color: var(--bg); }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 48px; height: 64px; display: flex; align-items: center; justify-content: space-between; background: rgba(245,240,232,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+    .nav-back { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--ink-2); letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.2s ease; }
+    .nav-back:hover { color: var(--accent); }
+    .nav-logo { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--ink-2); letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; }
+    .proj-hero { padding: 128px 48px 80px; }
+    .proj-meta { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; gap: 16px; }
+    .proj-meta span { color: var(--ink-3); }
+    .proj-hero-title { font-family: 'Cormorant Garant', serif; font-size: clamp(48px, 7vw, 104px); font-weight: 300; line-height: 0.95; letter-spacing: -0.03em; color: var(--ink); }
+    .proj-hero-desc { margin-top: 32px; max-width: 640px; font-size: 18px; font-weight: 300; color: var(--ink-2); line-height: 1.7; }
+    .contrib-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+    .contrib-tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 12px; border: 1px solid; }
+    .contrib-tag.ix { color: #5C4A8A; background: rgba(92,74,138,0.08); border-color: rgba(92,74,138,0.3); }
+    .contrib-tag.pm { color: #8A6B2E; background: rgba(138,107,46,0.08); border-color: rgba(138,107,46,0.3); }
+    .proj-image-section { padding: 0 48px; }
+    .proj-image-wrap { width: 100%; aspect-ratio: 16/9; overflow: hidden; position: relative; }
+    .proj-image-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .proj-image-wrap::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(24,20,16,0.2) 0%, transparent 50%); }
+    .proj-content { padding: 80px 48px; display: grid; grid-template-columns: 1fr 360px; gap: 80px; align-items: start; }
+    .proj-body { font-size: 17px; font-weight: 300; color: var(--ink-2); line-height: 1.8; }
+    .proj-body p + p { margin-top: 20px; }
+    .proj-body strong { color: var(--ink); font-weight: 400; }
+    .proj-body em { font-style: italic; color: var(--accent); font-family: 'Cormorant Garant', serif; font-size: 1.05em; }
+    .proj-sidebar { display: flex; flex-direction: column; gap: 32px; }
+    .sidebar-block-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ink-3); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 12px; }
+    .sidebar-block-value { font-size: 14px; font-weight: 300; color: var(--ink-2); line-height: 1.6; }
+    .contrib-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 0; }
+    .contrib-tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border: 1px solid; }
+    .contrib-tag.ix { color: #5C4A8A; background: rgba(92,74,138,0.08); border-color: rgba(92,74,138,0.3); }
+    .contrib-tag.pm { color: #8A6B2E; background: rgba(138,107,46,0.08); border-color: rgba(138,107,46,0.3); }
+    .sidebar-block-value strong { color: var(--ink); font-weight: 400; display: block; }
+    .divider { width: 100%; height: 1px; background: var(--border); }
+    footer { background: var(--ink); padding: 24px 48px; border-top: 1px solid rgba(245,240,232,0.08); display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(245,240,232,0.25); letter-spacing: 0.08em; }
+    @media (max-width: 768px) { nav { padding: 0 24px; } .proj-hero { padding: 100px 24px 48px; } .proj-image-section { padding: 0 24px; } .proj-content { padding: 48px 24px; grid-template-columns: 1fr; } footer { padding: 20px 24px; flex-direction: column; gap: 8px; } }
+    .proj-hero, .proj-content { max-width: 1200px; margin-left: auto; margin-right: auto; }
+  </style>
+</head>
+<body>
+  <div id="cursor"></div>
+  <nav>
+    <a href="../index.html#projects" class="nav-back">← Projects</a>
+    <a href="../index.html" class="nav-logo">S.Wang</a>
+  </nav>
+
+  <header class="proj-hero">
+    <p class="proj-meta">2025 <span>·</span> Spatial Design</p>
+    <h1 class="proj-hero-title">Augmented<br>Rosyth</h1>
+    <p class="proj-hero-desc">Architectural design portfolio for a speculative AI- and XR-powered primary school campus — imagining how learning environments transform when intelligence is embedded in space.</p>
+    <div class="contrib-tags">
+      <span class="contrib-tag ix">Interaction Designer</span>
+    </div>
+  </header>
+
+  <div class="proj-image-section">
+    <div class="proj-image-wrap">
+      <img src="../images/Projects/Rosyth.PNG" alt="Augmented Rosyth" />
+    </div>
+  </div>
+
+  <div class="proj-content">
+    <div class="proj-body">
+      <p>
+        <strong>Augmented Rosyth</strong> is a speculative architectural design portfolio reimagining Rosyth Primary School in Singapore as a future campus where AI and XR are woven into the physical infrastructure of learning. The project asks: <em>what does a school look like when space itself becomes a learning interface?</em>
+      </p>
+      <p>
+        The design explores three spatial paradigms: adaptive classrooms where AR overlays shift based on subject and group learning mode; outdoor discovery trails where the physical campus triggers contextual AI tutors; and a communal "imagination hall" — a large open volume with projection-mapped surfaces that transforms between assembly space, simulation theater, and collaborative design studio.
+      </p>
+      <p>
+        As interaction designer and product manager, I led the UX framework — defining how students and teachers would navigate the transition between physical and augmented modes — and managed the design sprint cadence across a multidisciplinary team of architects, educators, and technologists. The portfolio was presented as part of a speculative futures brief for urban educational environments.
+      </p>
+    </div>
+    <aside class="proj-sidebar">
+      <div>
+        <p class="sidebar-block-label">Year</p>
+        <p class="sidebar-block-value">2025</p>
+      </div>
+      <div class="divider"></div>
+      <div>
+        <p class="sidebar-block-label">Context</p>
+        <p class="sidebar-block-value">Speculative design portfolio, National University of Singapore</p>
+      </div>
+      <div class="divider"></div>
+      <div>
+        <p class="sidebar-block-label">Methods</p>
+        <p class="sidebar-block-value">Speculative design, spatial UX, participatory workshops, design sprints</p>
+      </div>
+      <div class="divider"></div>
+      <div>
+        <p class="sidebar-block-label">Roles</p>
+        <div class="contrib-tags">
+          <span class="contrib-tag ix">Interaction Designer</span>
+          <span class="contrib-tag pm">Product Manager</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <span class="footer-copy">Wang Silang (William) · University of Washington</span>
+    <span class="footer-copy">Human Centered Design & Engineering</span>
+  </footer>
+  <script>
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expanded'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expanded'));
+    });
+  </script>
+</body>
+</html>

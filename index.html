@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wang Silang (William) — HCDE, University of Washington</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:       #F5F0E8;
+      --bg-2:     #EDE8DE;
+      --bg-3:     #E4DDCF;
+      --ink:      #181410;
+      --ink-2:    #6B6459;
+      --ink-3:    #A89F94;
+      --accent:   #C4622D;
+      --accent-l: #D9845A;
+      --gold:     #B8924A;
+      --border:   #D5CFC4;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      cursor: none;
+      overflow-x: hidden;
+    }
+
+    /* ─── Custom cursor ─── */
+    #cursor {
+      position: fixed;
+      top: 0; left: 0;
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+    }
+    #cursor.expanded {
+      width: 32px; height: 32px;
+      background: var(--accent);
+      opacity: 0.3;
+    }
+
+    /* ─── Grain overlay ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.5;
+    }
+
+    /* ─── Typography ─── */
+    .display {
+      font-family: 'Cormorant Garant', serif;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+    }
+    .mono {
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.04em;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    /* ─── Nav ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 48px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.3s ease, border-bottom 0.3s ease, backdrop-filter 0.3s ease;
+    }
+    nav.scrolled {
+      background: rgba(245,240,232,0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--ink-2);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--ink-2);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      position: relative;
+      transition: color 0.2s ease;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 1px;
+      background: var(--accent);
+      transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ─── Reveal animation ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.32s; }
+    .reveal-delay-4 { transition-delay: 0.44s; }
+
+    /* ─── Hero ─── */
+    #hero {
+      min-height: 100vh;
+      padding: 0 48px;
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: end;
+      padding-bottom: 64px;
+      padding-top: 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-portrait {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      height: 100%;
+      max-width: 55%;
+      object-fit: cover;
+      object-position: 70% top;
+      opacity: 0.4;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 25%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.9) 100%);
+      mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 25%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.9) 100%);
+      pointer-events: none;
+      z-index: 1;
+      mix-blend-mode: multiply;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding-top: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      max-width: 720px;
+    }
+
+    .hero-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garant', serif;
+      font-size: clamp(72px, 9vw, 128px);
+      font-weight: 300;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+    }
+    .hero-name em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--ink-2);
+    }
+
+    .hero-tagline {
+      margin-top: 32px;
+      max-width: 560px;
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--ink-2);
+      line-height: 1.65;
+    }
+
+    .hero-cta {
+      margin-top: 48px;
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .btn-primary {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--ink);
+      padding: 14px 28px;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .btn-primary:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+    }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-secondary {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s ease;
+    }
+    .btn-secondary::after {
+      content: '→';
+      transition: transform 0.2s ease;
+    }
+    .btn-secondary:hover { color: var(--accent); }
+    .btn-secondary:hover::after { transform: translateX(4px); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 64px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      z-index: 2;
+    }
+    .hero-scroll span {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      color: var(--ink-3);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, var(--border), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(0.7); transform-origin: top; }
+    }
+
+    /* ─── Section shared ─── */
+    section {
+      padding: 112px 48px;
+      position: relative;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .section-heading {
+      font-family: 'Cormorant Garant', serif;
+      font-size: clamp(42px, 5vw, 72px);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    /* ─── Research section ─── */
+    #research {
+      background: var(--bg-2);
+    }
+    #research::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      right: 0; height: 1px;
+      background: linear-gradient(to right, transparent, var(--border) 20%, var(--border) 80%, transparent);
+    }
+
+    .research-grid {
+      margin-top: 64px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .research-card {
+      background: var(--bg);
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .research-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 3px;
+      background: var(--accent);
+      transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .research-card:hover::before { width: 100%; }
+    .research-card:hover { transform: translateY(-4px); }
+
+    .research-card-num {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 72px;
+      font-weight: 300;
+      color: var(--bg-3);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+      transition: color 0.3s ease;
+    }
+    .research-card:hover .research-card-num { color: var(--accent); opacity: 0.2; }
+
+    .research-card-title {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+
+    .research-card-desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--ink-2);
+      line-height: 1.75;
+    }
+
+    .research-tags {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .research-card:hover .tag {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ─── Publications ─── */
+    #publications {
+      border-top: 1px solid var(--border);
+    }
+
+    .publications-header {
+      margin-bottom: 64px;
+    }
+
+    .pub-filter {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      align-self: flex-end;
+    }
+
+    .pub-filter-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--ink-3);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      border: 1px solid transparent;
+      background: none;
+      cursor: none;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .pub-filter-btn.active, .pub-filter-btn:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .pub-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pub-item {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      gap: 32px 40px;
+      align-items: baseline;
+      padding: 28px 0;
+      border-top: 1px solid var(--border);
+      transition: background 0.2s ease;
+      position: relative;
+      cursor: none;
+    }
+    .pub-item:last-child { border-bottom: 1px solid var(--border); }
+    .pub-item::before {
+      content: '';
+      position: absolute;
+      left: -48px; right: -48px;
+      top: 0; bottom: 0;
+      background: var(--bg-2);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      z-index: -1;
+    }
+    .pub-item:hover::before { opacity: 1; }
+
+    .pub-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--ink-3);
+      letter-spacing: 0.05em;
+      padding-top: 2px;
+    }
+
+    .pub-content { display: flex; flex-direction: column; gap: 6px; }
+
+    .pub-title {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.3;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .pub-title:hover { color: var(--accent); }
+
+    .pub-meta {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ink-2);
+      line-height: 1.5;
+    }
+    .pub-venue {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .pub-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      background: var(--accent);
+      color: var(--bg);
+      align-self: flex-start;
+      white-space: nowrap;
+    }
+    .pub-badge.honorable {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+    }
+
+    /* ─── Projects ─── */
+    #projects {
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+    }
+
+    /* Filter bar */
+    .proj-filter-bar {
+      display: flex;
+      gap: 4px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+    .proj-filter-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--ink-3);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border: 1px solid var(--border);
+      background: none;
+      cursor: none;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+    .proj-filter-btn:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+    .proj-filter-btn.active {
+      color: var(--bg);
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+
+    /* Project grid */
+    .projects-grid {
+      margin-top: 32px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      align-items: stretch;
+    }
+
+    .proj-card {
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+      position: relative;
+    }
+    .proj-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(24,20,16,0.08), 0 4px 12px rgba(24,20,16,0.04);
+    }
+    .proj-card.hidden {
+      display: none;
+    }
+
+    /* Image area */
+    .proj-img-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: var(--bg-3);
+      flex-shrink: 0;
+    }
+    .proj-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .proj-card:hover .proj-img-wrap img {
+      transform: scale(1.04);
+    }
+    .proj-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(24,20,16,0.28) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    /* Card body */
+    .proj-body {
+      padding: 28px 32px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .proj-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--ink-3);
+      letter-spacing: 0.1em;
+    }
+
+    .proj-title {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 26px;
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    .proj-desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--ink-2);
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    /* Contribution tags */
+    .proj-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .contrib-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border: 1px solid;
+    }
+    .contrib-tag.xr {
+      color: #C4622D;
+      background: rgba(196,98,45,0.08);
+      border-color: rgba(196,98,45,0.3);
+    }
+    .contrib-tag.bci {
+      color: #2B6475;
+      background: rgba(43,100,117,0.08);
+      border-color: rgba(43,100,117,0.3);
+    }
+    .contrib-tag.ix {
+      color: #5C4A8A;
+      background: rgba(92,74,138,0.08);
+      border-color: rgba(92,74,138,0.3);
+    }
+    .contrib-tag.pm {
+      color: #8A6B2E;
+      background: rgba(138,107,46,0.08);
+      border-color: rgba(138,107,46,0.3);
+    }
+    .contrib-tag.ur {
+      color: #2E6B5E;
+      background: rgba(46,107,94,0.08);
+      border-color: rgba(46,107,94,0.3);
+    }
+
+    /* Read more link */
+    .proj-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      align-self: flex-start;
+      margin-top: 8px;
+      transition: gap 0.2s ease, color 0.2s ease;
+    }
+    .proj-link::after { content: '→'; }
+    .proj-link:hover { gap: 12px; color: var(--ink); }
+
+    /* Award badge */
+    .proj-award {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(184,146,74,0.4);
+      background: rgba(184,146,74,0.07);
+      padding: 4px 10px;
+      margin-bottom: 10px;
+    }
+    .proj-award::before { content: '★'; font-size: 8px; }
+    /* Stretched link — makes entire card clickable */
+    .proj-link::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+    }
+    .proj-card { cursor: pointer; }
+
+    /* ─── About/Bio ─── */
+    #about {
+      border-top: 1px solid var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 480px;
+      gap: 96px;
+      margin-top: 64px;
+      align-items: start;
+    }
+
+    .about-body {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--ink-2);
+      line-height: 1.8;
+    }
+    .about-body p + p { margin-top: 24px; }
+    .about-body strong { color: var(--ink); font-weight: 400; }
+    .about-body em { font-style: italic; color: var(--accent); font-family: 'Cormorant Garant', serif; font-size: 1.1em; }
+
+    /* ─── Resident Evil bloody highlight ─── */
+    .re-highlight {
+      color: #900000;
+      font-weight: 500;
+      position: relative;
+      cursor: pointer;
+      display: inline;
+      transition: color 0.15s ease, text-shadow 0.15s ease;
+      padding: 0 1px;
+      background: linear-gradient(to right, rgba(139,0,0,0.05), rgba(180,0,0,0.1), rgba(139,0,0,0.05));
+    }
+    .re-highlight::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(to right, #6B0000, #CC0000, #8B0000);
+      opacity: 0.85;
+    }
+    .re-highlight:hover {
+      color: #C00000;
+      text-shadow: 0 0 18px rgba(180,0,0,0.4), 0 2px 10px rgba(120,0,0,0.25);
+    }
+
+    .about-sidebar { display: flex; flex-direction: column; gap: 40px; }
+
+    .about-block {}
+    .about-block-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--ink-3);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .about-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .about-list li {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--ink-2);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .about-list li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 9px;
+      width: 6px; height: 1px;
+      background: var(--accent);
+    }
+    .about-list li strong {
+      display: block;
+      color: var(--ink);
+      font-weight: 400;
+      font-size: 15px;
+    }
+
+    .award-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .award-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      white-space: nowrap;
+      padding-top: 2px;
+    }
+    .award-name {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.4;
+    }
+    .award-org {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--ink-3);
+    }
+
+    /* ─── Contact ─── */
+    #contact {
+      background: var(--ink);
+      border-top: none;
+      padding: 96px 48px;
+    }
+
+    #contact .section-label { color: var(--accent-l); }
+    #contact .section-label::before { background: var(--accent-l); }
+
+    .contact-grid {
+      margin-top: 64px;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    .contact-heading {
+      font-family: 'Cormorant Garant', serif;
+      font-size: clamp(48px, 6vw, 80px);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--bg);
+    }
+    .contact-heading em {
+      font-style: italic;
+      color: var(--accent-l);
+    }
+
+    .contact-icons {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .contact-icon-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      opacity: 0.6;
+    }
+    .contact-icon-link:hover {
+      transform: translateY(-3px);
+      opacity: 1;
+    }
+    .contact-icon-link svg {
+      width: 28px; height: 28px;
+      fill: var(--bg);
+    }
+    .contact-icon-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.5);
+      text-align: center;
+    }
+    .contact-icon-link:hover .contact-icon-label {
+      color: var(--accent-l);
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      background: var(--ink);
+      padding: 24px 48px;
+      border-top: 1px solid rgba(245,240,232,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 400;
+      color: rgba(245,240,232,0.25);
+      letter-spacing: 0.08em;
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 1024px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-portrait { opacity: 0.08; max-width: 70%; }
+      .research-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0 24px; }
+      .nav-links { gap: 20px; }
+      section { padding: 72px 24px; }
+      #hero { padding: 0 24px 48px; }
+      footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
+      .pub-item { grid-template-columns: 60px 1fr; }
+      .pub-badge { display: none; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div id="cursor"></div>
+
+  <!-- ─── Navigation ─── -->
+  <nav id="nav">
+    <a href="#hero" class="nav-logo">S.Wang</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── Hero ─── -->
+  <section id="hero">
+    <img
+      src="images/william_hero_2.png"
+      class="hero-portrait"
+      alt=""
+      aria-hidden="true"
+    />
+
+    <div class="hero-content">
+      <p class="hero-label reveal">Human Centered Design & Engineering · University of Washington</p>
+      <h1 class="hero-name reveal reveal-delay-1">
+        Wang Silang<br><em>(William)</em>
+      </h1>
+      <p class="hero-tagline reveal reveal-delay-2">
+        Building <em>heads-up computing</em> applications and multimodal AI systems — studying how they augment human perception and cognition for seamless interaction with the digital and physical world.
+      </p>
+      <div class="hero-cta reveal reveal-delay-3">
+        <a href="#publications" class="btn-primary">View Publications</a>
+        <a href="#contact" class="btn-secondary">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── About ─── -->
+  <section id="about">
+    <p class="section-label reveal">Background</p>
+    <h2 class="section-heading reveal reveal-delay-1">About</h2>
+
+    <div class="about-grid">
+      <div>
+        <div class="about-body reveal reveal-delay-2">
+          <p>
+            Hi! I'm a master student in the <strong>Human Centered Design & Engineering (HCDE)</strong> program at <strong>University of Washington (UW)</strong>. Through my work, I develop heads-up computing applications and multimodal AI systems, and study how they can augment human perception and cognition for seamless interaction with both the digital and the physical world.
+          </p>
+          <p>
+            Before UW, I completed my bachelor's degree in computer engineering with <em>first class honours</em> at <strong>National University of Singapore (NUS)</strong>, where I worked on heads-up computing, wearables and human-AI interaction in the NUS-HCI Lab, advised by professor Shengdong Zhao. I also interned at a Singaporean start-up building a Singaporean sign language LLM for a smartphone-based two-way sign language translation application, and co-founded another start-up for mixed-reality based physical education for local secondary school and junior college students in Singapore.
+          </p>
+          <p>
+            Outside the lab, I play survival horror games like the <span class="re-highlight" id="re-series-link">Resident Evil series</span>, tour distinct architecture in the US like the Seattle Public Library, and think a lot about <em>how long will it take for GUI to become the next CLI.</em>
+          </p>
+        </div>
+      </div>
+
+      <div class="about-sidebar">
+        <div class="about-block reveal reveal-delay-2">
+          <p class="about-block-label">Education</p>
+          <ul class="about-list">
+            <li>
+              <strong>M.S., Human Centered Design & Engineering</strong>
+              University of Washington
+              <span style="display:block;">2025–2027</span>
+            </li>
+            <li>
+              <strong>B.S., Computer Engineering</strong>
+              National University of Singapore
+              <span style="display:block;">2021–2025</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Projects ─── -->
+  <section id="projects">
+    <p class="section-label reveal">Selected Work</p>
+    <h2 class="section-heading reveal reveal-delay-1">Projects</h2>
+
+    <!-- Filter bar -->
+    <div class="proj-filter-bar reveal reveal-delay-2">
+      <button class="proj-filter-btn active" data-filter="all">All</button>
+      <button class="proj-filter-btn" data-filter="wearable-ai">Wearable AI</button>
+      <button class="proj-filter-btn" data-filter="neurofeedback">Neuroadaptive Interface</button>
+      <button class="proj-filter-btn" data-filter="spatial-design">Spatial Design</button>
+    </div>
+
+    <div class="projects-grid" id="projects-grid">
+
+      <!-- 1. Dreamee — 2026 -->
+      <div class="proj-card reveal reveal-delay-1" data-categories="neurofeedback wearable-ai">
+        <div class="proj-img-wrap">
+          <img src="images/Projects/dreamee.png" alt="Dreamee" loading="lazy" />
+        </div>
+        <div class="proj-body">
+          <span class="proj-year">2026</span>
+          <h3 class="proj-title">Dreamee</h3>
+          <p class="proj-desc">AI, VR and EEG-BCI powered wearable dream machine for people to speak out their aspirations and experience it immersively.</p>
+          <div class="proj-tags">
+            <span class="contrib-tag bci">BCI Developer</span>
+          </div>
+          <a href="https://devpost.com/software/dream-ee" class="proj-link" target="_blank" rel="noopener">Read more</a>
+        </div>
+      </div>
+
+      <!-- 2. Breathe — 2025 -->
+      <div class="proj-card reveal reveal-delay-2" data-categories="neurofeedback">
+        <div class="proj-img-wrap">
+          <img src="images/Projects/Breathe/EEG-VR%20Sophrologist.png" alt="Breathe" loading="lazy" />
+        </div>
+        <div class="proj-body">
+          <span class="proj-year">2025</span>
+          <h3 class="proj-title">Breathe</h3>
+          <p class="proj-desc">EEG-BCI powered wearable neurofeedback meditation application in VR.</p>
+          <div class="proj-tags">
+            <span class="contrib-tag xr">XR Developer</span>
+            <span class="contrib-tag bci">BCI Developer</span>
+          </div>
+          <a href="projects/breathe.html" class="proj-link" target="_blank">Read more</a>
+        </div>
+      </div>
+
+      <!-- 3. ARTag — 2025 -->
+      <div class="proj-card reveal reveal-delay-3" data-categories="wearable-ai">
+        <div class="proj-img-wrap">
+          <img src="images/Projects/ARTag/Multiplayer%20AR%20Laser%20Tag%20%28Capstone%20Project%29.png" alt="ARTag" loading="lazy" />
+        </div>
+        <div class="proj-body">
+          <span class="proj-year">2025</span>
+          <h3 class="proj-title">ARTag</h3>
+          <p class="proj-desc">AI-powered wearable AR laser tag system, with integrated motion-detecting hardware and real-time action classification, supporting multiplayer experience.</p>
+          <div class="proj-tags">
+            <span class="contrib-tag xr">XR Developer</span>
+          </div>
+          <a href="projects/artag.html" class="proj-link" target="_blank">Read more</a>
+        </div>
+      </div>
+
+      <!-- 4. Augmented Rosyth — 2025 -->
+      <div class="proj-card reveal reveal-delay-1" data-categories="spatial-design">
+        <div class="proj-img-wrap">
+          <img src="images/Projects/Augmented Rosyth/Rosyth.PNG" alt="Augmented Rosyth" loading="lazy" />
+        </div>
+        <div class="proj-body">
+          <span class="proj-year">2025</span>
+          <h3 class="proj-title">Augmented Rosyth</h3>
+          <p class="proj-desc">Architectural design portfolio for a speculative, hybrid, XR and AI-enabled community-farm learning complex.</p>
+          <div class="proj-tags">
+            <span class="contrib-tag ix">Interaction Designer</span>
+          </div>
+          <a href="https://ibdcenquiries.wixsite.com/ibdc2024/items/*3rd-prize*-national-university-of-singapore-(nus)" class="proj-link" target="_blank" rel="noopener">Read more</a>
+        </div>
+      </div>
+
+      <!-- 5. Anu — 2025 -->
+      <div class="proj-card reveal reveal-delay-2" data-categories="wearable-ai">
+        <div class="proj-img-wrap">
+          <img src="images/Projects/Anu.jpg" alt="Anu" loading="lazy" />
+        </div>
+        <div class="proj-body">
+          <span class="proj-year">2025</span>
+          <h3 class="proj-title">Anu</h3>
+          <p class="proj-desc">AI, VR and haptic powered speculative digital legacy platform for digital natives to physically and conversationally interact with their deceased loved ones.</p>
+          <div class="proj-tags">
+            <span class="contrib-tag xr">XR Developer</span>
+            <span class="contrib-tag pm">Product Manager</span>
+          </div>
+          <a href="https://devpost.com/software/digital-anubis" class="proj-link" target="_blank" rel="noopener">Read more</a>
+        </div>
+      </div>
+
+      <!-- 6. TIMI — 2024 -->
+      <div class="proj-card reveal reveal-delay-3" data-categories="spatial-design">
+        <div class="proj-img-wrap">
+          <img src="images/Projects/TIMI/TIMI.png" alt="TIMI" loading="lazy" />
+        </div>
+        <div class="proj-body">
+          <span class="proj-year">2024</span>
+          <h3 class="proj-title">TIMI</h3>
+          <p class="proj-desc">Interaction design portfolio for a multimodal, wearable, context-aware AR travel companion.</p>
+          <div class="proj-tags">
+            <span class="contrib-tag ix">Interaction Designer</span>
+            <span class="contrib-tag ur">Usability Researcher</span>
+            <span class="contrib-tag pm">Product Manager</span>
+          </div>
+          <a href="projects/timi.html" class="proj-link" target="_blank">Read more</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ─── Publications ─── -->
+  <section id="publications">
+    <div class="publications-header">
+      <div>
+        <p class="section-label reveal">Selected Work</p>
+        <h2 class="section-heading reveal reveal-delay-1">Publications</h2>
+      </div>
+    </div>
+
+    <div class="pub-list">
+      <div class="pub-item reveal">
+        <span class="pub-year">2025</span>
+        <div class="pub-content">
+          <a href="https://dl.acm.org/doi/full/10.1145/3698204.3716482" class="pub-title" target="_blank" rel="noopener">Designing Interactive Multimodal Information Retrieval and Access for Heads Up Computing (DIMIRA-HUC)</a>
+          <p class="pub-meta">H Liu, S Zhao, <strong>S Wang</strong>, P Hansen, I Oakley, KD Le · <span class="pub-venue">CHIIR 2025</span></p>
+        </div>
+      </div>
+
+      <div class="pub-item reveal reveal-delay-1">
+        <span class="pub-year">2024</span>
+        <div class="pub-content">
+          <a href="https://dl.acm.org/doi/abs/10.1145/3640471.3680230" class="pub-title" target="_blank" rel="noopener">"What's this?": Understanding User Interaction Behaviour with Multimodal Input Information Retrieval System</a>
+          <p class="pub-meta"><strong>S Wang</strong>, H Kim, N Janaka, K Yue, HL Nguyen, S Zhao, H Liu, KD Le · <span class="pub-venue">MobileHCI 2024</span></p>
+        </div>
+      </div>
+
+      <div class="pub-item reveal reveal-delay-2">
+        <span class="pub-year">2023</span>
+        <div class="pub-content">
+          <a href="https://dl.acm.org/doi/abs/10.1145/3610931" class="pub-title" target="_blank" rel="noopener">GlassMessaging: Towards Ubiquitous Messaging Using OHMDs</a>
+          <p class="pub-meta">N Janaka, J Gao, L Zhu, S Zhao, L Lyu, P Xu, M Nabokow, <strong>S Wang</strong>, Y Ong · <span class="pub-venue">IMWUT 2023</span></p>
+        </div>
+      </div>
+
+      <div class="pub-item reveal reveal-delay-3">
+        <span class="pub-year">2023</span>
+        <div class="pub-content">
+          <a href="https://dl.acm.org/doi/abs/10.1145/3607822.3618016" class="pub-title" target="_blank" rel="noopener">GlassMessaging: Supporting Messaging Needs During Daily Activities Using OST-HMDs</a>
+          <p class="pub-meta">N Janaka, J Gao, L Zhu, S Zhao, L Lyu, P Xu, M Nabokow, <strong>S Wang</strong>, Y Ong · <span class="pub-venue">SUI 2023</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Contact ─── -->
+  <section id="contact">
+    <p class="section-label reveal">Get in Touch</p>
+
+    <div class="contact-grid">
+      <h2 class="contact-heading reveal reveal-delay-1">
+        Have fun,<br>be <em>different</em>
+      </h2>
+
+      <div class="contact-icons reveal reveal-delay-2">
+        <!-- Email -->
+        <a href="mailto:swang233@uw.edu" class="contact-icon-link">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <span class="contact-icon-label">Email</span>
+        </a>
+        <!-- Google Scholar -->
+        <a href="https://scholar.google.com/citations?user=Ah_JyacAAAAJ&hl=en&inst=3212728378801010220" class="contact-icon-link" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5 12 0z"/></svg>
+          <span class="contact-icon-label">Scholar</span>
+        </a>
+        <!-- GitHub -->
+        <a href="https://github.com/JangusRoundstone" class="contact-icon-link" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          <span class="contact-icon-label">GitHub</span>
+        </a>
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/in/silang-wang-4change/" class="contact-icon-link" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          <span class="contact-icon-label">LinkedIn</span>
+        </a>
+        <!-- CV -->
+        <div class="contact-icon-link" style="cursor:default; opacity:0.35;">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16zm0-6h4v1.5H8V10z"/></svg>
+          <span class="contact-icon-label">CV<br>upon request</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Footer ─── -->
+  <!-- <footer>
+    <span class="footer-copy">© 2026 Wang Silang (William) · University of Washington</span>
+    <span class="footer-copy">Human Centered Design & Engineering</span>
+  </footer> -->
+  <div style="background: var(--ink); padding: 16px 48px 24px; text-align: center; border-top: 1px solid rgba(245,240,232,0.06);">
+    <p style="font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(245,240,232,0.2); letter-spacing: 0.06em; line-height: 1.8;">
+      Copyright © William Wang 2026<br>
+      Made in Seattle with ♡
+    </p>
+  </div>
+
+  <script>
+    // ── Custom cursor
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expanded'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expanded'));
+    });
+
+    // ── Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 32);
+    }, { passive: true });
+
+    // ── Reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    // ── Hero elements reveal immediately
+    document.querySelectorAll('#hero .reveal').forEach(el => {
+      setTimeout(() => el.classList.add('visible'), 100);
+    });
+
+    // ── Project filter
+    const filterBtns = document.querySelectorAll('.proj-filter-btn');
+    const projCards  = document.querySelectorAll('#projects-grid .proj-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+        projCards.forEach(card => {
+          const cats = card.dataset.categories || '';
+          if (filter === 'all' || cats.includes(filter)) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // ── S.T.A.R.S. audio on RE hover/click
+    const starsAudio = new Audio('audio/s-t-a-r-s.mp3');
+    starsAudio.volume = 0.8;
+
+    const reLink = document.getElementById('re-series-link');
+    if (reLink) {
+      let unlocked = false;
+      let audioTimeout = null;
+
+      function playStars() {
+        starsAudio.currentTime = 0;
+        starsAudio.play().catch(() => {});
+      }
+
+      // First click unlocks + plays
+      reLink.addEventListener('click', () => {
+        unlocked = true;
+        playStars();
+      });
+
+      // Subsequent hovers play once unlocked
+      reLink.addEventListener('mouseenter', () => {
+        if (!unlocked) return;
+        clearTimeout(audioTimeout);
+        audioTimeout = setTimeout(playStars, 120);
+      });
+      reLink.addEventListener('mouseleave', () => clearTimeout(audioTimeout));
+    }
+  </script>
+</body>
+</html>
