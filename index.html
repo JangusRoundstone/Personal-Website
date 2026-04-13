@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=DM+Mono:wght@300;400;500&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet" />
 
   <!-- Vercel Speed Insights -->
   <script>
@@ -182,7 +182,7 @@
       height: 100%;
       max-width: 55%;
       object-fit: cover;
-      object-position: 70% top;
+      object-position: center top;
       opacity: 0.4;
       -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 25%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.9) 100%);
       mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 25%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.9) 100%);
@@ -790,6 +790,36 @@
     .about-body em { font-style: italic; color: var(--accent); font-family: 'Cormorant Garant', serif; font-size: 1.1em; }
 
     /* ─── Resident Evil bloody highlight ─── */
+    .spl-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.95em;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      position: relative;
+      display: inline-block;
+      padding: 1px 8px 2px;
+      background: linear-gradient(160deg, #1a2a3a 0%, #5b8fb5 28%, #7aafd4 48%, #3a6a90 68%, #1a2a3a 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 1px 1px rgba(255,255,255,0.6)) drop-shadow(0 -1px 1px rgba(60,100,140,0.3));
+    }
+    .spl-text::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 6px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.2) 45%, rgba(200,215,228,0.15) 55%, rgba(255,255,255,0.4) 100%);
+      backdrop-filter: blur(12px) saturate(1.8);
+      -webkit-backdrop-filter: blur(12px) saturate(1.8);
+      border: 1px solid rgba(255,255,255,0.75);
+      border-bottom-color: rgba(180,200,215,0.35);
+      border-right-color: rgba(180,200,215,0.35);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(180,200,215,0.25), 0 2px 10px rgba(0,0,0,0.07);
+      z-index: -1;
+    }
+
     .re-highlight {
       color: #900000;
       font-weight: 500;
@@ -1004,7 +1034,7 @@
   <!-- ─── Hero ─── -->
   <section id="hero">
     <img
-      src="images/william_hero_2.png"
+      src="images/william_hero.png"
       class="hero-portrait"
       alt=""
       aria-hidden="true"
@@ -1016,7 +1046,7 @@
         Wang Silang<br><em>(William)</em>
       </h1>
       <p class="hero-tagline reveal reveal-delay-2">
-        Building <em>heads-up computing</em> applications and multimodal AI systems — studying how they augment human perception and cognition for seamless interaction with the digital and physical world.
+        Building <em>heads-up computing</em> applications and multimodal AI systems — studying how they augment human perception and cognition for seamless interaction with the digital and physical world and for human flourishing.
       </p>
       <div class="hero-cta reveal reveal-delay-3">
         <a href="#publications" class="btn-primary">View Publications</a>
@@ -1034,13 +1064,12 @@
       <div>
         <div class="about-body reveal reveal-delay-2">
           <p>
-            Hi! I'm a master student in the <strong>Human Centered Design & Engineering (HCDE)</strong> program at <strong>University of Washington (UW)</strong>. Through my work, I develop heads-up computing applications and multimodal AI systems, and study how they can augment human perception and cognition for seamless interaction with both the digital and the physical world.
-          </p>
+            Hi! I'm Silang/William, a master student in the <strong>Human Centered Design & Engineering (HCDE)</strong> program at <strong>University of Washington (UW)</strong>. My journey in HCI started with the reading of "The Singularity is Near" in the last year of my primary school in China, after which I asked my parents to send me abroad for a less conservative education. After a few days of hunger strike, followed by memorizing all the vocabulary in 6 American primary school English textbooks in one month, my parents sent me to Singapore alone, where my journey of finding the humans in the machines — and the machines in the humans — truly began.
           <p>
             Before UW, I completed my bachelor's degree in computer engineering with <em>first class honours</em> at <strong>National University of Singapore (NUS)</strong>, where I worked on heads-up computing, wearables and human-AI interaction in the NUS-HCI Lab, advised by professor Shengdong Zhao. I also interned at a Singaporean start-up building a Singaporean sign language LLM for a smartphone-based two-way sign language translation application, and co-founded another start-up for mixed-reality based physical education for local secondary school and junior college students in Singapore.
           </p>
           <p>
-            Outside the lab, I play survival horror games like the <span class="re-highlight" id="re-series-link">Resident Evil series</span>, tour distinct architecture in the US like the Seattle Public Library, and think a lot about <em>how long will it take for GUI to become the next CLI.</em>
+            Outside the lab, I play survival horror games like the <span class="re-highlight" id="re-series-link">Resident Evil series</span>, tour distinct architecture in the US like the <span class="spl-text">Seattle Public Library</span>, and think a lot about <em>how long will it take for GUI to become the next CLI.</em>
           </p>
         </div>
       </div>
