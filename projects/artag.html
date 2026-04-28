@@ -79,6 +79,10 @@
     .proj-title { font-family: 'Cormorant Garant', serif; font-size: clamp(32px, 4vw, 52px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 32px; }
     .proj-desc { font-size: 17px; font-weight: 300; color: var(--ink-2); line-height: 1.8; max-width: 660px; }
     .proj-desc p + p { margin-top: 20px; }
+    .proj-desc strong { color: var(--ink); font-weight: 600; }
+
+    /* Bold highlight */
+    .glass-text { font-weight: 600; color: var(--ink); }
 
     /* Official link */
     .official-link-wrap { margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border); }
@@ -125,8 +129,7 @@
       <div class="meta-divider"></div>
       <div>
         <p class="meta-label">Tools</p>
-        <p class="meta-value">Unity<br>OpenAI<br>Pyth
-          on<br>MQTT<br>Microsoft HoloLens 2</p>
+        <p class="meta-value">Unity<br>OpenAI<br>Python<br>MQTT<br>Microsoft HoloLens 2</p>
       </div>
       <div class="meta-divider"></div>
       <div>
@@ -154,7 +157,7 @@
       <h1 class="proj-title">ARTag — Heads-up Multiplayer AR Laser Tag</h1>
       <div class="proj-desc">
         <p>
-          This capstone project (CG4002) marked the culmination of my four years of undergraduate computer engineering experiences at NUS, where I collaborated with four teammates to design and build a fully functional wearable AR laser tag system from scratch. Our system explored heads-up, embodied interaction by combining wearable sensing, real-time AI inference, and spatial AR visualization into a seamless multiplayer gameplay experience. I worked on the development of the heads-up AR game visualizer, conversational AI game tutor and system integration with other parts such as the game evaluation server and motion detecting hardware.
+          This capstone project (CG4002) marked the culmination of my four years of undergraduate computer engineering experiences at NUS, where I collaborated with four teammates to design and build a fully functional wearable AR laser tag system from scratch. Our system explored heads-up, embodied interaction by combining wearable sensing, real-time AI inference, and spatial AR visualization into a seamless multiplayer gameplay experience. <span class="glass-text">Independently, I worked on the development of the heads-up AR game visualizer, conversational AI game tutor and system integration with other parts such as the game evaluation server and motion detecting hardware.</span>
         </p>
         <p>
           Players competed in 1-on-1 matches while wearing sensor-embedded gloves equipped with IMU and gyroscope modules, along with Microsoft HoloLens 2 headsets for immersive gameplay visuals. Physical gestures such as boxing punches were captured through the wearable sensors and transmitted wirelessly to a neural network model deployed on an FPGA for real-time action recognition. The inference results were then streamed through MQTT to a broker laptop and relayed to the HoloLens 2, where dynamic AR game effects and live status information — such as player health, shield status, and attack outcomes — were visualized directly in the player's first person view. Players can also learn how to play the game in a 3D tutorial room with a conversational AI game tutor prior to the game.

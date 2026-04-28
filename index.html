@@ -789,6 +789,129 @@
     .about-body strong { color: var(--ink); font-weight: 400; }
     .about-body em { font-style: italic; color: var(--accent); font-family: 'Cormorant Garant', serif; font-size: 1.1em; }
 
+    /* ─── CLI text ─── */
+    .cli-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85em;
+      color: #00ff41;
+      background: #0d0d0d;
+      padding: 2px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      position: relative;
+      display: inline-block;
+      transition: box-shadow 0.2s ease;
+    }
+    .cli-text::before { content: '> '; opacity: 0.5; }
+    .cli-text:hover { box-shadow: 0 0 8px rgba(0,255,65,0.4); }
+
+    /* CLI popup — attached tooltip */
+    .cli-popup {
+      display: none;
+      position: fixed;
+      width: 340px;
+      background: #0d0d0d;
+      border: 1px solid rgba(0,255,65,0.5);
+      border-radius: 8px;
+      box-shadow: 0 0 24px rgba(0,255,65,0.1), 0 8px 32px rgba(0,0,0,0.4);
+      z-index: 9998;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(6px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      font-family: 'DM Mono', monospace;
+    }
+    .cli-popup.open {
+      display: block;
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+    .cli-popup-bar {
+      padding: 8px 14px;
+      border-bottom: 1px solid rgba(0,255,65,0.15);
+    }
+    .cli-popup-title {
+      font-size: 9px;
+      color: rgba(0,255,65,0.4);
+      letter-spacing: 0.1em;
+    }
+    .cli-popup-body { padding: 14px; }
+    .cli-popup-prompt {
+      font-size: 10px;
+      color: rgba(0,255,65,0.5);
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+    .cli-popup-prompt span { color: #00ff41; }
+    .cli-popup-input-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .cli-prompt-symbol { color: #00ff41; font-size: 13px; padding-top: 8px; }
+    .cli-popup-input {
+      flex: 1;
+      background: none;
+      border: none;
+      outline: none;
+      color: #00ff41;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      resize: none;
+      min-height: 52px;
+      caret-color: #00ff41;
+    }
+    .cli-popup-input::placeholder { color: rgba(0,255,65,0.25); }
+    .cli-popup-submit {
+      width: 100%;
+      margin-top: 12px;
+      background: none;
+      border: 1px solid rgba(0,255,65,0.4);
+      color: #00ff41;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      padding: 7px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .cli-popup-submit:hover { background: rgba(0,255,65,0.08); border-color: #00ff41; }
+
+    /* Responses terminal */
+    .cli-responses {
+      margin-top: 32px;
+      background: #0d0d0d;
+      border: 1px solid rgba(0,255,65,0.3);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .cli-responses-bar {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 14px;
+      border-bottom: 1px solid rgba(0,255,65,0.15);
+    }
+    .cli-responses-title {
+      flex: 1; font-family: 'DM Mono', monospace;
+      font-size: 9px; color: rgba(0,255,65,0.4); letter-spacing: 0.1em;
+    }
+    .cli-responses-body {
+      padding: 16px;
+      max-height: 200px;
+      overflow-y: auto;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: rgba(0,255,65,0.7);
+      line-height: 1.8;
+    }
+    .cli-responses-body::-webkit-scrollbar { width: 4px; }
+    .cli-responses-body::-webkit-scrollbar-track { background: transparent; }
+    .cli-responses-body::-webkit-scrollbar-thumb { background: rgba(0,255,65,0.2); border-radius: 2px; }
+    .cli-response-entry { margin-bottom: 8px; }
+    .cli-response-entry .cli-ts { color: rgba(0,255,65,0.3); margin-right: 8px; }
+    .cli-empty { color: rgba(0,255,65,0.25); font-style: italic; }
+
     /* ─── Resident Evil bloody highlight ─── */
     .spl-text {
       font-family: 'Barlow Condensed', sans-serif;
@@ -818,6 +941,30 @@
       border-right-color: rgba(180,200,215,0.35);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(180,200,215,0.25), 0 2px 10px rgba(0,0,0,0.07);
       z-index: -1;
+    }
+
+    .spl-tooltip {
+      position: absolute;
+      bottom: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      width: 260px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.12);
+      border: 1px solid rgba(255,255,255,0.6);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 10;
+    }
+    .spl-tooltip img {
+      width: 100%;
+      display: block;
+    }
+    .spl-text:hover .spl-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
 
     .re-highlight {
@@ -1064,12 +1211,14 @@
       <div>
         <div class="about-body reveal reveal-delay-2">
           <p>
-            Hi! I'm Silang/William, a master student in the <strong>Human Centered Design & Engineering (HCDE)</strong> program at <strong>University of Washington (UW)</strong>. My journey in HCI started with the reading of "The Singularity is Near" in the last year of my primary school in China, after which I asked my parents to send me abroad for a less conservative education. After a few days of hunger strike, followed by memorizing all the vocabulary in 6 American primary school English textbooks in one month, my parents sent me to Singapore alone, where my journey of finding the humans in the machines — and the machines in the humans — truly began.
+            My journey in HCI started with the reading of "The Singularity is Near" in the last year of my primary school in China, after which I asked my parents to send me abroad for a less conservative education. After a few days of hunger strike, followed by memorizing all the vocabulary in 6 American primary school English textbooks in one month,  I left for Singapore alone to stay with my aunt. In my first year living abroad, search engine and electronic dictionary helped me make sense of the new English environment. They became my best friend, nurtured my interests in STEM and arts, and helped me find my home away from home. 
           <p>
-            Before UW, I completed my bachelor's degree in computer engineering with <em>first class honours</em> at <strong>National University of Singapore (NUS)</strong>, where I worked on heads-up computing, wearables and human-AI interaction in the NUS-HCI Lab, advised by professor Shengdong Zhao. I also interned at a Singaporean start-up building a Singaporean sign language LLM for a smartphone-based two-way sign language translation application, and co-founded another start-up for mixed-reality based physical education for local secondary school and junior college students in Singapore.
+            Nowadays, when I look back at that period of teenage rebellion, I couldn’t help but wonder: what would have happened had my journey taken place 100 years earlier, without modern technologies? And how would another child’s act of defiance unfold 100 years later? Will they reflect on their thoughts and habits captured by their wearable AI companion and plan their future with it, or will they simply rely on AI to tell them what to do based on their past behaviours? How can we design mixed-initiative wearable AI systems that understand users’ explicit and implicit behaviours to support and augment their cognition for human flourishing? How will the interaction with such wearable AI systems look like in the future? 
+          <p>
+            Hi! I'm Silang/William, a master student in the <strong>Human Centered Design & Engineering (HCDE)</strong> program at <strong>University of Washington (UW)</strong>. Before UW, I completed my bachelor's degree in computer engineering with first class honours at <strong>National University of Singapore (NUS)</strong>, where I worked on heads-up computing, wearables and human-AI interaction in the NUS-HCI Lab, advised by professor Shengdong Zhao. I also interned at a Singaporean start-up building a Singaporean sign language LLM for a smartphone-based two-way sign language translation application, and co-founded another start-up for mixed-reality based physical education for local secondary school and junior college students in Singapore.
           </p>
           <p>
-            Outside the lab, I play survival horror games like the <span class="re-highlight" id="re-series-link">Resident Evil series</span>, tour distinct architecture in the US like the <span class="spl-text">Seattle Public Library</span>, and think a lot about <em>how long will it take for GUI to become the next CLI.</em>
+            Outside the lab, I play survival horror games like the <span class="re-highlight" id="re-series-link">Resident Evil series</span>, tour distinct architecture in the US like the <span class="spl-text">Seattle Public Library<span class="spl-tooltip"><img src="images/Seattle%20Public%20Library.jpeg" alt="Seattle Public Library" /></span></span>, and think a lot about <span class="cli-text" id="cli-trigger">how long will it take for GUI to become the next CLI.</span>
           </p>
         </div>
       </div>
@@ -1089,6 +1238,15 @@
               <span style="display:block;">2021–2025</span>
             </li>
           </ul>
+        </div>
+
+        <div class="cli-responses reveal reveal-delay-3">
+          <div class="cli-responses-bar">
+            <div class="cli-responses-title">VISITOR_THOUGHTS.log</div>
+          </div>
+          <div class="cli-responses-body" id="cli-responses-body">
+            <span class="cli-empty">// no responses yet — be the first</span>
+          </div>
         </div>
       </div>
     </div>
@@ -1311,6 +1469,23 @@
     </p>
   </div>
 
+  <div class="cli-popup" id="cli-popup">
+    <div class="cli-popup-bar">
+      <div class="cli-popup-title">STDIN — visitor_thought.exe</div>
+    </div>
+    <div class="cli-popup-body">
+      <div class="cli-popup-prompt">
+        <span>$</span> query: <span>how long will it take for GUI to become the next CLI?</span><br>
+        <span style="color:rgba(0,255,65,0.35);">// leave your thoughts below</span>
+      </div>
+      <div class="cli-popup-input-row">
+        <span class="cli-prompt-symbol">❯</span>
+        <textarea class="cli-popup-input" id="cli-input" placeholder="type your response..." rows="3"></textarea>
+      </div>
+      <button class="cli-popup-submit" id="cli-submit">[ SUBMIT_RESPONSE ]</button>
+    </div>
+  </div>
+
   <script>
     // ── Custom cursor
     const cursor = document.getElementById('cursor');
@@ -1396,6 +1571,86 @@
       });
       reLink.addEventListener('mouseleave', () => clearTimeout(audioTimeout));
     }
+
+    // ── CLI popup
+    const cliTrigger = document.getElementById('cli-trigger');
+    const cliPopup   = document.getElementById('cli-popup');
+    const cliInput   = document.getElementById('cli-input');
+    const cliSubmit  = document.getElementById('cli-submit');
+    const cliLog     = document.getElementById('cli-responses-body');
+
+    const STORAGE_KEY = 'cli_responses';
+
+    function loadResponses() {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    }
+
+    function saveResponse(text) {
+      const responses = loadResponses();
+      responses.push({ text, ts: new Date().toISOString().slice(0,10) });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(responses));
+    }
+
+    function renderResponses() {
+      const responses = loadResponses();
+      if (!responses.length) {
+        cliLog.innerHTML = '<span class="cli-empty">// no responses yet — be the first</span>';
+        return;
+      }
+      cliLog.innerHTML = responses.map(r =>
+        `<div class="cli-response-entry"><span class="cli-ts">[${r.ts}]</span>${r.text}</div>`
+      ).join('');
+      cliLog.scrollTop = cliLog.scrollHeight;
+    }
+
+    function openCli() {
+      const rect = cliTrigger.getBoundingClientRect();
+      cliPopup.style.left = rect.left + 'px';
+      cliPopup.style.top  = (rect.top - cliPopup.offsetHeight - 10) + 'px';
+      cliPopup.style.display = 'block';
+      requestAnimationFrame(() => cliPopup.classList.add('open'));
+      cliInput.focus();
+    }
+
+    function closeCli() {
+      cliPopup.classList.remove('open');
+      setTimeout(() => { if (!cliPopup.classList.contains('open')) cliPopup.style.display = 'none'; }, 200);
+    }
+
+    if (cliTrigger) {
+      let cliHoverTimeout;
+      const handleLeave = (e) => {
+        if (cliPopup.contains(e.relatedTarget)) return;
+        clearTimeout(cliHoverTimeout);
+        closeCli();
+      };
+      cliPopup.addEventListener('mouseleave', (e) => {
+        if (!cliTrigger.contains(e.relatedTarget)) closeCli();
+      });
+      cliTrigger.addEventListener('mouseenter', () => {
+        clearTimeout(cliHoverTimeout);
+        cliHoverTimeout = setTimeout(openCli, 180);
+      });
+      cliTrigger.addEventListener('mouseleave', handleLeave);
+    }
+
+    cliSubmit.addEventListener('click', () => {
+      const text = cliInput.value.trim();
+      if (!text) return;
+      saveResponse(text);
+      cliInput.value = '';
+      renderResponses();
+      closeCli();
+    });
+
+    cliInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        cliSubmit.click();
+      }
+    });
+
+    renderResponses();
   </script>
 </body>
 </html>
