@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=DM+Mono:wght@300;400;500&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;700&family=Playfair+Display:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=DM+Mono:wght@300;400;500&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet" />
 
   <!-- Vercel Speed Insights -->
   <script>
@@ -23,16 +23,16 @@
 
   <style>
     :root {
-      --bg:       #F5F0E8;
-      --bg-2:     #EDE8DE;
-      --bg-3:     #E4DDCF;
-      --ink:      #181410;
-      --ink-2:    #6B6459;
-      --ink-3:    #A89F94;
-      --accent:   #C4622D;
-      --accent-l: #D9845A;
-      --gold:     #B8924A;
-      --border:   #D5CFC4;
+      --bg:       #000000;
+      --bg-2:     #000000;
+      --bg-3:     #111111;
+      --ink:      #FFFFFF;
+      --ink-2:    #C8C8C8;
+      --ink-3:    #787878;
+      --accent:   #F5C800;
+      --accent-l: #FFD94D;
+      --gold:     #F5C800;
+      --border:   #353020;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -80,7 +80,7 @@
 
     /* ─── Typography ─── */
     .display {
-      font-family: 'Cormorant Garant', serif;
+      font-family: 'Playfair Display', serif;
       letter-spacing: -0.02em;
       line-height: 1.05;
     }
@@ -107,7 +107,7 @@
       transition: background 0.3s ease, border-bottom 0.3s ease, backdrop-filter 0.3s ease;
     }
     nav.scrolled {
-      background: rgba(245,240,232,0.88);
+      background: rgba(10,10,10,0.95);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
@@ -115,7 +115,7 @@
       font-family: 'DM Mono', monospace;
       font-size: 11px;
       font-weight: 400;
-      color: var(--ink-2);
+      color: var(--accent);
       letter-spacing: 0.1em;
       text-transform: uppercase;
       text-decoration: none;
@@ -129,7 +129,7 @@
       font-family: 'DM Mono', monospace;
       font-size: 11px;
       font-weight: 400;
-      color: var(--ink-2);
+      color: var(--accent);
       letter-spacing: 0.08em;
       text-transform: uppercase;
       text-decoration: none;
@@ -183,12 +183,12 @@
       max-width: 55%;
       object-fit: cover;
       object-position: center top;
-      opacity: 0.4;
+      opacity: 1;
       -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 25%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.9) 100%);
       mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 25%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.9) 100%);
       pointer-events: none;
       z-index: 1;
-      mix-blend-mode: multiply;
+      mix-blend-mode: screen;
     }
 
     .hero-content {
@@ -198,7 +198,7 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      max-width: 720px;
+      max-width: none;
     }
 
     .hero-label {
@@ -212,12 +212,12 @@
     }
 
     .hero-name {
-      font-family: 'Cormorant Garant', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(72px, 9vw, 128px);
       font-weight: 300;
       line-height: 0.95;
       letter-spacing: -0.03em;
-      color: var(--ink);
+      color: var(--accent);
     }
     .hero-name em {
       font-style: italic;
@@ -232,6 +232,10 @@
       font-weight: 300;
       color: var(--ink-2);
       line-height: 1.65;
+    }
+    .hero-tagline em {
+      font-style: normal;
+      color: var(--accent);
     }
 
     .hero-cta {
@@ -303,7 +307,7 @@
       animation: scrollPulse 2s ease-in-out infinite;
     }
     @keyframes scrollPulse {
-      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      0%, 100% { opacity: 0.28; transform: scaleY(1); }
       50% { opacity: 1; transform: scaleY(0.7); transform-origin: top; }
     }
 
@@ -334,11 +338,12 @@
     }
 
     .section-heading {
-      font-family: 'Cormorant Garant', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(42px, 5vw, 72px);
       font-weight: 400;
       line-height: 1.05;
       letter-spacing: -0.02em;
+      color: var(--accent);
     }
 
     /* ─── Research section ─── */
@@ -379,7 +384,7 @@
     .research-card:hover { transform: translateY(-4px); }
 
     .research-card-num {
-      font-family: 'Cormorant Garant', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 72px;
       font-weight: 300;
       color: var(--bg-3);
@@ -391,7 +396,7 @@
     .research-card:hover .research-card-num { color: var(--accent); opacity: 0.2; }
 
     .research-card-title {
-      font-family: 'Cormorant Garant', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 28px;
       font-weight: 500;
       line-height: 1.2;
@@ -402,7 +407,7 @@
 
     .research-card-desc {
       font-size: 14px;
-      font-weight: 300;
+      font-weight: 400;
       color: var(--ink-2);
       line-height: 1.75;
     }
@@ -504,7 +509,7 @@
     .pub-content { display: flex; flex-direction: column; gap: 6px; }
 
     .pub-title {
-      font-family: 'Cormorant Garant', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 22px;
       font-weight: 500;
       line-height: 1.3;
@@ -521,6 +526,7 @@
       color: var(--ink-2);
       line-height: 1.5;
     }
+    .pub-meta strong { color: var(--accent); font-weight: 600; }
     .pub-venue {
       font-style: italic;
       color: var(--gold);
@@ -599,7 +605,7 @@
     }
     .proj-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 40px rgba(24,20,16,0.08), 0 4px 12px rgba(24,20,16,0.04);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 4px 16px rgba(245,200,0,0.08);
     }
     .proj-card.hidden {
       display: none;
@@ -641,7 +647,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(24,20,16,0.28) 0%, transparent 55%);
+      background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 55%);
       pointer-events: none;
     }
 
@@ -663,7 +669,7 @@
     }
 
     .proj-title {
-      font-family: 'Cormorant Garant', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 26px;
       font-weight: 500;
       line-height: 1.15;
@@ -673,7 +679,7 @@
 
     .proj-desc {
       font-size: 14px;
-      font-weight: 300;
+      font-weight: 400;
       color: var(--ink-2);
       line-height: 1.7;
       flex: 1;
@@ -696,29 +702,29 @@
       border: 1px solid;
     }
     .contrib-tag.xr {
-      color: #C4622D;
-      background: rgba(196,98,45,0.08);
-      border-color: rgba(196,98,45,0.3);
+      color: #FF6B6B;
+      background: rgba(255,107,107,0.1);
+      border-color: rgba(255,107,107,0.35);
     }
     .contrib-tag.bci {
-      color: #2B6475;
-      background: rgba(43,100,117,0.08);
-      border-color: rgba(43,100,117,0.3);
+      color: #38C8D8;
+      background: rgba(56,200,216,0.1);
+      border-color: rgba(56,200,216,0.35);
     }
     .contrib-tag.ix {
-      color: #5C4A8A;
-      background: rgba(92,74,138,0.08);
-      border-color: rgba(92,74,138,0.3);
+      color: #B08CF0;
+      background: rgba(176,140,240,0.1);
+      border-color: rgba(176,140,240,0.35);
     }
     .contrib-tag.pm {
-      color: #8A6B2E;
-      background: rgba(138,107,46,0.08);
-      border-color: rgba(138,107,46,0.3);
+      color: #F0A030;
+      background: rgba(240,160,48,0.1);
+      border-color: rgba(240,160,48,0.35);
     }
     .contrib-tag.ur {
-      color: #2E6B5E;
-      background: rgba(46,107,94,0.08);
-      border-color: rgba(46,107,94,0.3);
+      color: #48D8A0;
+      background: rgba(72,216,160,0.1);
+      border-color: rgba(72,216,160,0.35);
     }
 
     /* Read more link */
@@ -728,7 +734,7 @@
       font-weight: 400;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--ink-2);
       text-decoration: none;
       display: inline-flex;
       align-items: center;
@@ -738,7 +744,7 @@
       transition: gap 0.2s ease, color 0.2s ease;
     }
     .proj-link::after { content: '→'; }
-    .proj-link:hover { gap: 12px; color: var(--ink); }
+    .proj-link:hover { gap: 12px; color: var(--accent); }
 
     /* Award badge */
     .proj-award {
@@ -780,14 +786,14 @@
     }
 
     .about-body {
-      font-size: 18px;
-      font-weight: 300;
+      font-size: 17px;
+      font-weight: 400;
       color: var(--ink-2);
       line-height: 1.8;
     }
     .about-body p + p { margin-top: 24px; }
-    .about-body strong { color: var(--ink); font-weight: 400; }
-    .about-body em { font-style: italic; color: var(--accent); font-family: 'Cormorant Garant', serif; font-size: 1.1em; }
+    .about-body strong { color: var(--accent); font-weight: 600; }
+    .about-body em { font-style: normal; color: var(--accent); }
 
     /* ─── CLI text ─── */
     .cli-text {
@@ -795,16 +801,18 @@
       font-size: 0.85em;
       color: #00ff41;
       background: #0d0d0d;
-      padding: 2px 8px;
+      padding: 3px 10px;
       border-radius: 4px;
+      border: 1px solid rgba(0,255,65,0.5);
       letter-spacing: 0.04em;
       cursor: pointer;
       position: relative;
       display: inline-block;
-      transition: box-shadow 0.2s ease;
+      box-shadow: 0 0 6px rgba(0,255,65,0.15);
+      transition: box-shadow 0.2s ease, border-color 0.2s ease;
     }
     .cli-text::before { content: '> '; opacity: 0.5; }
-    .cli-text:hover { box-shadow: 0 0 8px rgba(0,255,65,0.4); }
+    .cli-text:hover { box-shadow: 0 0 14px rgba(0,255,65,0.45); border-color: rgba(0,255,65,0.9); }
 
     /* CLI popup — attached tooltip */
     .cli-popup {
@@ -933,13 +941,13 @@
       position: absolute;
       inset: 0;
       border-radius: 6px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.2) 45%, rgba(200,215,228,0.15) 55%, rgba(255,255,255,0.4) 100%);
+      background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.08) 45%, rgba(200,215,228,0.05) 55%, rgba(255,255,255,0.15) 100%);
       backdrop-filter: blur(12px) saturate(1.8);
       -webkit-backdrop-filter: blur(12px) saturate(1.8);
-      border: 1px solid rgba(255,255,255,0.75);
-      border-bottom-color: rgba(180,200,215,0.35);
-      border-right-color: rgba(180,200,215,0.35);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(180,200,215,0.25), 0 2px 10px rgba(0,0,0,0.07);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-bottom-color: rgba(180,200,215,0.12);
+      border-right-color: rgba(180,200,215,0.12);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), inset 0 -1px 0 rgba(180,200,215,0.1), 0 2px 10px rgba(0,0,0,0.3);
       z-index: -1;
     }
 
@@ -968,7 +976,7 @@
     }
 
     .re-highlight {
-      color: #900000;
+      color: #FF3B3B;
       font-weight: 500;
       position: relative;
       cursor: pointer;
@@ -1013,7 +1021,7 @@
     }
     .about-list li {
       font-size: 14px;
-      font-weight: 300;
+      font-weight: 400;
       color: var(--ink-2);
       padding-left: 16px;
       position: relative;
@@ -1028,8 +1036,8 @@
     }
     .about-list li strong {
       display: block;
-      color: var(--ink);
-      font-weight: 400;
+      color: var(--accent);
+      font-weight: 600;
       font-size: 15px;
     }
 
@@ -1059,7 +1067,7 @@
 
     /* ─── Contact ─── */
     #contact {
-      background: var(--ink);
+      background: var(--bg-2);
       border-top: none;
       padding: 96px 48px;
     }
@@ -1075,12 +1083,13 @@
     }
 
     .contact-heading {
-      font-family: 'Cormorant Garant', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(48px, 6vw, 80px);
       font-weight: 300;
-      line-height: 1.05;
+      line-height: 1.2;
       letter-spacing: -0.03em;
-      color: var(--bg);
+      color: var(--ink);
+      padding-bottom: 8px;
     }
     .contact-heading em {
       font-style: italic;
@@ -1110,14 +1119,14 @@
     }
     .contact-icon-link svg {
       width: 28px; height: 28px;
-      fill: var(--bg);
+      fill: var(--ink);
     }
     .contact-icon-label {
       font-family: 'DM Mono', monospace;
       font-size: 9px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: rgba(245,240,232,0.5);
+      color: rgba(255,255,255,0.5);
       text-align: center;
     }
     .contact-icon-link:hover .contact-icon-label {
@@ -1128,7 +1137,7 @@
     footer {
       background: var(--ink);
       padding: 24px 48px;
-      border-top: 1px solid rgba(245,240,232,0.08);
+      border-top: 1px solid rgba(245,200,0,0.08);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -1137,7 +1146,7 @@
       font-family: 'DM Mono', monospace;
       font-size: 10px;
       font-weight: 400;
-      color: rgba(245,240,232,0.25);
+      color: rgba(255,255,255,0.25);
       letter-spacing: 0.08em;
     }
 
@@ -1190,10 +1199,10 @@
     <div class="hero-content">
       <p class="hero-label reveal">Human Centered Design & Engineering · University of Washington</p>
       <h1 class="hero-name reveal reveal-delay-1">
-        Wang Silang<br><em>(William)</em>
+        <span style="white-space:nowrap">Wang Silang</span><br><em>(William)</em>
       </h1>
       <p class="hero-tagline reveal reveal-delay-2">
-        Building <em>heads-up computing</em> applications and multimodal AI systems — studying how they augment human perception and cognition for seamless interaction with the digital and physical world and for human flourishing.
+        I <em>build, study and ship</em> the <em>wearable and AI systems</em> I once needed as an immigrant child living alone in a foreign country, combining business development, human-centered HCI research and storytelling to turn emerging technologies into real consumer experiences, peer-reviewed publications and award-winning projects.
       </p>
       <div class="hero-cta reveal reveal-delay-3">
         <a href="#publications" class="btn-primary">View Publications</a>
@@ -1211,11 +1220,12 @@
       <div>
         <div class="about-body reveal reveal-delay-2">
           <p>
-            My journey in HCI started with the reading of "The Singularity is Near" in the last year of my primary school in China, after which I asked my parents to send me abroad for a less conservative education. After a few days of hunger strike, followed by memorizing all the vocabulary in 6 American primary school English textbooks in one month,  I left for Singapore alone to stay with my aunt. In my first year living abroad, search engine and electronic dictionary helped me make sense of the new English environment. They became my best friend, nurtured my interests in STEM and arts, and helped me find my home away from home. 
+            My journey in HCI started with the reading of <em>"The Singularity is Near"</em> in the last year of my primary school in China, after which I asked my parents to send me abroad for a less conservative education. After a few days of <em>hunger strike</em>, followed by memorizing all the vocabulary in 6 American primary school English textbooks in one month,  <em>I left for Singapore alone to stay with my aunt</em>. In my first year living abroad, <em>search engine and electronic dictionary</em> helped me make sense of the new English environment. They became my best friend, nurtured my interests in STEM and arts, and helped me find my home away from home. 
+          </p>
           <p>
             Nowadays, when I look back at that period of teenage rebellion, I couldn’t help but wonder: what would have happened had my journey taken place 100 years earlier, without modern technologies? And how would another child’s act of defiance unfold 100 years later? Will they reflect on their thoughts and habits captured by their wearable AI companion and plan their future with it, or will they simply rely on AI to tell them what to do based on their past behaviours? How can we design mixed-initiative wearable AI systems that understand users’ explicit and implicit behaviours to support and augment their cognition for human flourishing? How will the interaction with such wearable AI systems look like in the future? 
           <p>
-            Hi! I'm Silang/William, a master student in the <strong>Human Centered Design & Engineering (HCDE)</strong> program at <strong>University of Washington (UW)</strong>. Before UW, I completed my bachelor's degree in computer engineering with first class honours at <strong>National University of Singapore (NUS)</strong>, where I worked on heads-up computing, wearables and human-AI interaction in the NUS-HCI Lab, advised by professor Shengdong Zhao. I also interned at a Singaporean start-up building a Singaporean sign language LLM for a smartphone-based two-way sign language translation application, and co-founded another start-up for mixed-reality based physical education for local secondary school and junior college students in Singapore.
+            Hi! I'm Silang/William, a master student in the Human Centered Design & Engineering (HCDE) program at University of Washington (UW). Before UW, I completed my bachelor's degree in computer engineering with first class honours at National University of Singapore (NUS), where I worked on heads-up computing, wearables and human-AI interaction in the NUS-HCI Lab, advised by professor Shengdong Zhao. I also interned at a Singaporean start-up building a Singaporean sign language LLM for a smartphone-based two-way sign language translation application, and co-founded another start-up for mixed-reality based physical education for local secondary school and junior college students in Singapore.
           </p>
           <p>
             Outside the lab, I play survival horror games like the <span class="re-highlight" id="re-series-link">Resident Evil series</span>, tour distinct architecture in the US like the <span class="spl-text">Seattle Public Library<span class="spl-tooltip"><img src="images/Seattle%20Public%20Library.jpeg" alt="Seattle Public Library" /></span></span>, and think a lot about <span class="cli-text" id="cli-trigger">how long will it take for GUI to become the next CLI.</span>
@@ -1462,8 +1472,8 @@
     <span class="footer-copy">© 2026 Wang Silang (William) · University of Washington</span>
     <span class="footer-copy">Human Centered Design & Engineering</span>
   </footer> -->
-  <div style="background: var(--ink); padding: 16px 48px 24px; text-align: center; border-top: 1px solid rgba(245,240,232,0.06);">
-    <p style="font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(245,240,232,0.2); letter-spacing: 0.06em; line-height: 1.8;">
+  <div style="background: #000000; padding: 16px 48px 24px; text-align: center; border-top: 1px solid rgba(245,232,0,0.06);">
+    <p style="font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.2); letter-spacing: 0.06em; line-height: 1.8;">
       Copyright © William Wang 2026<br>
       Made in Seattle with ♡
     </p>
