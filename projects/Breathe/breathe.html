@@ -16,9 +16,7 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.7; cursor: none; overflow-x: hidden; }
-    #cursor { position: fixed; top: 0; left: 0; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease; }
-    #cursor.expanded { width: 32px; height: 32px; opacity: 0.3; }
+    body { background: var(--bg); color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.7; cursor: default; overflow-x: hidden; }
     body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1; opacity: 0.5; }
     ::selection { background: var(--accent); color: var(--bg); }
 
@@ -211,6 +209,11 @@
     .inline-video-wrap .img-caption { margin-top: 10px; }
 
     /* GitHub link */
+    /* Challenge / Solution block */
+    .cs-block { margin-top: 20px; display: flex; flex-direction: column; gap: 14px; }
+    .cs-item { font-size: 15px; font-weight: 300; color: var(--ink-2); line-height: 1.75; }
+    .cs-label { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+
     .official-link-wrap { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--border); }
     .official-link { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--accent); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: gap 0.2s ease, color 0.2s ease; }
     .official-link::after { content: '→'; }
@@ -230,10 +233,20 @@
       nav { padding: 0 24px; }
       footer { padding: 20px 24px; flex-direction: column; gap: 8px; }
     }
+
+    /* Specificity toggle */
+    .spec-toggle { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); }
+    .spec-toggle-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--ink-3); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 10px; display: block; }
+    .spec-btns { display: flex; gap: 6px; }
+    .spec-btn { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; padding: 7px 12px; border: 1px solid var(--border); background: transparent; color: var(--ink-3); cursor: pointer; transition: all 0.2s ease; flex: 1; text-align: center; }
+    .spec-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .spec-btn.active { background: var(--accent); border-color: var(--accent); color: #000; }
+    .concise-content { display: none; }
+    .concise-content p { font-size: 16px; font-weight: 300; color: var(--ink-2); line-height: 1.85; margin-bottom: 20px; }
+    .concise-content p:last-child { margin-bottom: 0; }
   </style>
 </head>
 <body>
-  <div id="cursor"></div>
 
   <nav>
     <a href="../../index.html#projects" class="nav-back">← Projects</a>
@@ -277,6 +290,13 @@
       <a href="#actions">Actions</a>
       <a href="#results">Results</a>
       <a href="#takeaways">Key Takeaways</a>
+      <div class="spec-toggle">
+        <span class="spec-toggle-label">Specificity</span>
+        <div class="spec-btns">
+          <button class="spec-btn active" id="btn-full">Full</button>
+          <button class="spec-btn" id="btn-concise">Concise</button>
+        </div>
+      </div>
     </aside>
 
     <!-- Content -->
@@ -284,32 +304,39 @@
 
       <!-- SITUATION -->
       <section class="case-section" id="situation">
-        <p class="section-label">Situation</p>
-        <div class="section-body">
-          <p>During a paid research development internship at the LSP Research Group at NUS, I supported a PhD student's startup, EigenSensor, working around its flagship wearable EEG brain–computer interface (BCI), Nuance EEG Sensor.</p>
+                <p class="section-label">Situation</p>
+        <div class="concise-content">
+          <p>During a paid research internship at the LSP Research Group at NUS, I joined a PhD student's startup, EigenSensor, to demonstrate the real-world potential of their wearable EEG brain-computer interface (BCI), Nuance EEG Sensor. The startup needed a compelling end-user application to show the hardware could integrate with emerging technologies like VR — and I was brought in to propose and build that proof-of-concept.</p>
+        </div>
+        <div class="section-body full-content">
+          <p>During a paid research development internship at the LSP Research Group at NUS, I supported a PhD student's startup, EigenSensor, around its flagship wearable electroencephalography (EEG) brain–computer interface (BCI), Nuance EEG Sensor — a wearable sensor capable of reading user's hidden mental states like focus or relaxation, based on electrical activity in the brain.</p>
           <p>While the hardware showed technical promise, the project lacked:</p>
           <ol class="numbered-list">
             <li><span class="num">01</span><span>Compelling end-user applications</span></li>
-            <li><span class="num">02</span><span>Proven integration with other platforms like VR</span></li>
+            <li><span class="num">02</span><span>Proven compatibility with other platforms like VR</span></li>
           </ol>
-          <p style="margin-top:16px;">The environment was highly ambiguous: the EEG hardware was still evolving, documentation was minimal, and no one on the team had prior VR development experience.</p>
+          <p style="margin-top:16px;">Given my HCI background, I was brought on to propose an innovative end-user use case for the PhD's BCI hardware. Given the unique strength of EEG-BCI to reveal users' hidden mental states based on their brain activity, and existing pain-points of meditation app users who struggle to track the effectiveness of their practice in real-time, I proposed building a VR-based EEG-BCI product — allowing users to engage in immersive meditation while receiving real-time feedback on the effectiveness of their practice, and demonstrating the potential of the novel hardware to integrate seamlessly with other technologies.</p>
+          <p>The environment was highly ambiguous: the EEG BCI was still evolving, documentation was minimal, and no one on the team had prior VR development experience. But I set out with full enthusiasm to realise my proposed idea.</p>
         </div>
       </section>
 
       <!-- TASK -->
       <section class="case-section" id="task">
-        <p class="section-label">Task</p>
-        <div class="section-body">
+                <p class="section-label">Task</p>
+        <div class="concise-content">
+          <p>I was solely responsible for designing and building a VR-based focused attention meditation application that used the EEG BCI to read users' brain alpha-waves in real time and adapt the virtual environment to reflect their mental state, establishing the full communication pipeline between the EEG hardware, Python signal-processing layer, and Unity VR system from scratch.</p>
+        </div>
+        <div class="section-body full-content">
           <p>My responsibility was to independently design and develop a VR-based neurofeedback meditation application that:</p>
           <ul class="dash-list">
-            <li>Read users’ brain alpha-wave activity in real time through a wearable EEG sensor</li>
-            <li>Build an end-to-end communication pipeline between the EEG device, signal-processing scripts, and VR headset</li>
+            <li>Read users’ brain alpha-wave activity in real time through a wearable EEG BCI</li>
+            <li>Build an end-to-end communication pipeline between the EEG BCI, signal-processing scripts, and VR headset</li>
             <li>Design an adaptive multimodal VR environment where visual and auditory stimuli dynamically responded to users’ mental states</li>
-            <li>Validate the feasibility of integrating the Nuance EEG sensor with immersive XR technologies</li>
+            <li>Validate the feasibility of integrating the Nuance EEG BCI with immersive XR technologies</li>
           </ul>
 
           <div class="inline-img-wrap">
-            <img src="Breathe%20Hardware.png" alt="Nuance EEG Sensor hardware" />
+            <img src="../../images/Projects/Breathe/Breathe%20Hardware.png" alt="Nuance EEG Sensor hardware" />
             <p class="img-caption">(hardware provided)</p>
           </div>
         </div>
@@ -317,37 +344,109 @@
 
       <!-- ACTIONS -->
       <section class="case-section" id="actions">
-        <p class="section-label">Actions</p>
-        <div class="section-body">
+                <p class="section-label">Actions</p>
+        <div class="concise-content">
+          <p>I self-taught Unity VR, OpenBCI, and MQTT communication while holding weekly sessions with the PhD student to understand the hardware's undocumented limitations. I designed the VR environment to protect signal integrity — adjusting tree billboard distances to prevent spurious EEG spikes and tuning campfire stimuli for optimal focus. When testing revealed each user has a unique brain alpha-wave baseline, I added a personalised calibration module, then validated the full system with 3 participants.</p>
+        </div>
+        <div class="section-body full-content">
 
+          <!-- Action 1 -->
           <p class="sub-heading">Built an end-to-end EEG ↔ VR pipeline</p>
-          <ol class="count-list">
-            <li>Self-taught Unity VR development, OpenBCI integration, and MQTT-based real-time communication</li>
-            <li>Worked directly with the PhD student to understand and debug the minimally documented EEG hardware</li>
-            <li>Developed a real-time pipeline connecting EEG signals to adaptive VR feedback</li>
-          </ol>
+          <div class="cs-block">
+            <div class="cs-item">
+              <span class="cs-label">Motivation</span>
+              Building a real-time EEG-to-VR system required integrating two technologies that were rarely connected, a situation made even more difficult with the custom EEG-BCI's limited documentation. Hence, a custom-built communication pipeline was necessary to bridge the gap between the EEG-BCI hardware and the VR headset, enabling real-time neurofeedback interactions
+            </div>
+            <div class="cs-item">
+              <span class="cs-label">Action</span>
+              <ol class="count-list" style="margin-top:8px;">
+                <li>Self-taught Unity VR development, OpenBCI integration, and MQTT-based real-time communication</li>
+                <li>Worked directly with the PhD student to understand and debug the minimally documented EEG-BCI hardware</li>
+                <li>Developed a real-time MQTT pipeline connecting EEG-BCI hardware signals to VR headset via an intermediate laptop</li>
+              </ol>
+            </div>
+            <div class="cs-item">
+              <span class="cs-label">Challenge</span>
+              Due to the novelty of the hardware and lack of documentation, there were frequent issues when working with the Nuance EEG BCI, such as its sensitivity to upward head movement, which introduced signal noise that could corrupt the brain alpha-wave readings
+            </div>
+            <div class="cs-item">
+              <span class="cs-label">Solution</span>
+              Held weekly meetings with the PhD student to share progress and deepen my understanding of the EEG's hardware design — including how it measures brain activity using direct electrodes pressed against the scalp and a reference electrode on the user's mastoid bone. These sessions helped me understand the technology's limitations so I could design around them, rather than against them
+            </div>
+          </div>
 
+          <!-- Action 2 -->
           <p class="sub-heading">Designed around physiological signal integrity</p>
-          <p>Rather than treating the project purely as a VR visualization task, I approached it as a closed-loop physiological interaction system where environmental design decisions could directly influence EEG quality. Two key design interventions emerged:</p>
-          <ol class="count-list" style="margin-top:16px;">
-            <li><strong>Reduced spurious EEG fluctuations</strong> — Increased tree billboard transition distance to minimize abrupt visual discontinuities during head movement, reducing unintended signal spikes while improving environmental fidelity</li>
-            <li><strong>Balanced stimulation intensity</strong> — Tuned campfire particle effects and spatial audio to maintain a "Goldilocks zone" of engagement — stimulating enough to sustain focus without overwhelming the calm mental state the system aimed to reinforce</li>
-          </ol>
+          <div class="cs-block">
+            <div class="cs-item">
+              <span class="cs-label">Motivation</span>
+              Rather than treating the project purely as a VR visualization task or physical meditation application without immersive elements, I approached it as a closed-loop physiological interaction system where VR environmental design decisions could directly influence EEG quality read
+            </div>
+            <div class="cs-item">
+              <span class="cs-label">Action</span>
+              <ol class="count-list" style="margin-top:8px;">
+                <li><strong>Reduced spurious EEG fluctuations</strong> — Increased tree billboard transition distance to minimize abrupt visual discontinuities during head movement, reducing unintended signal spikes while improving environmental fidelity</li>
+                <li><strong>Balanced stimulation intensity</strong> — Tuned campfire particle effects and spatial audio to maintain a "Goldilocks zone" of engagement — stimulating enough to sustain focus without overwhelming the calm mental state the system aimed to reinforce</li>
+              </ol>
+            </div>
+            <div class="cs-item">
+              <span class="cs-label">Challenge</span>
+              Due to the immersive nature of VR and the number of elements in the environment, it was difficult to pinpoint which exact element was causing unexpected EEG readings when they surfaced. It required a tremendous level of attention to detail to single out inconspicuous yet consequential default settings in Unity that led to unexpected system behaviours, corrupting users' brain alpha-wave signals
+            </div>
+            <div class="cs-item">
+              <span class="cs-label">Solution</span>
+              Reading Unity's developer forums to understand how the engine automatically optimises for VR performance revealed the root cause. For example, Unity automatically replaces a richly-rendered 3D tree model with a flat 2D billboard when the user is no longer looking directly at it — an inconspicuous setting that causes sudden, noticeable visual changes as users turn their heads, producing unexpected spikes in their brain alpha-wave readings and corrupting EEG data. This setting was toggled off to ensure that no unintended visual changes occurred in the background, so that beyond the intended meditation stimuli, no other environmental element could interfere with users' brain activity
+            </div>
+          </div>
 
+          <!-- Action 3 -->
           <p class="sub-heading">Conducted pilot validation</p>
-          <p>Tested the system with 3 participants to verify that users could reliably transition between relaxed and focused brain alpha-wave states using the application.</p>
+          <div class="cs-block">
+            <div class="cs-item">
+              <span class="cs-label">Motivation</span>
+              Before handing the system to the PhD student's startup, I wanted to verify that the neurofeedback loop worked reliably across real users — not just under developer testing conditions, to ensure the reliabiltiy of my system
+            </div>
+            <div class="cs-item">
+              <span class="cs-label">Action</span>
+              Proactively tested the system with 3 participants, without such request from the PhD student, to verify that all users could reliably transition between relaxed and focused brain alpha-wave states using the application
+            </div>
+            <div class="cs-item">
+              <span class="cs-label">Challenge</span>
+              The initial setup did not work for all users — the system failed to accurately detect brain alpha-wave activity changes for 2 of the 3 participants. Every individual has a unique baseline level of brain activity, and the system's fixed detection threshold was calibrated only to the developer's own readings, making it unreliable across different users
+            </div>
+            <div class="cs-item">
+              <span class="cs-label">Solution</span>
+              A baseline evaluation module was added to the system that captures each individual user's resting brain alpha-wave activity before the session begins. By calibrating the detection threshold to each user's personal baseline rather than a fixed value, the system could accurately track meaningful changes in brain activity regardless of individual neurological differences
+            </div>
+          </div>
+
         </div>
       </section>
 
       <!-- RESULTS -->
       <section class="case-section" id="results">
-        <p class="section-label">Results</p>
-        <div class="section-body">
-          <ul class="dash-list">
-            <li>All 3 participants successfully completed the focused-attention neurofeedback protocol, repeatedly transitioning between relaxed baseline and elevated brain alpha-wave states in real time</li>
-            <li>Delivered a functional proof-of-concept demonstrating that EigenSensor could integrate with immersive XR systems</li>
-            <li>Provided the PhD student's startup with an interactive internal demo showcasing the wearable EEG's real-world application potential</li>
-          </ul>
+                <p class="section-label">Results</p>
+        <div class="concise-content">
+          <p>All 3 participants successfully completed the focused-attention neurofeedback protocol. I delivered the project in 3 months, ahead of the 4-month contract, independently conducted usability testing, and produced a product demo video. Both the PhD student and Professor Peh Li-Shiuan expressed strong satisfaction, and we remain in contact to this day.</p>
+        </div>
+        <div class="section-body full-content">
+
+          <div class="cs-item" style="margin-bottom:24px;">
+            <span class="cs-label">Beyond Expectation</span>
+            <ul class="dash-list" style="margin-top:8px;">
+              <li>Completed the 4-month contract within 3 months</li>
+              <li>Additionally conducted usability testing to guarantee desirable usability across users — going beyond the original scope to ensure the system worked reliably for people other than the developer and the PhD student</li>
+              <li>Additionally produced a product demo video documenting the application's full functionality for the startup's future product demo and pitch</li>
+              <li>Both the PhD student, Goh Teck Lun, and the head of LSP research group at NUS, Professor Peh Li-Shiuan, expressed strong satisfaction with the results — and we have remained in contact to date</li>
+            </ul>
+          </div>
+
+          <div class="cs-item" style="margin-bottom:24px;">
+            <span class="cs-label">Meeting Expectation</span>
+            <ul class="dash-list" style="margin-top:8px;">
+              <li>Delivered a functional proof-of-concept EEG-to-VR immersive neurofeedback meditation application built on EigenSensor's own custom EEG BCI hardware, ready for future demos and investor and customer pitches</li>
+            </ul>
+          </div>
 
           <div class="inline-video-wrap">
             <div class="video-inner">
@@ -364,8 +463,11 @@
 
       <!-- KEY TAKEAWAYS -->
       <section class="case-section" id="takeaways">
-        <p class="section-label">Key Takeaways</p>
-        <div class="section-body">
+                <p class="section-label">Key Takeaways</p>
+        <div class="concise-content">
+          <p>This project built my capacity to rapidly self-learn unfamiliar technical domains, operate independently in underdefined research environments, and build end-to-end systems spanning XR, physiological sensing, and real-time data pipelines.</p>
+        </div>
+        <div class="section-body full-content">
           <p>Through this project, I strengthened my ability to:</p>
           <ul class="dash-list">
             <li>Rapidly learn unfamiliar technical domains</li>
@@ -385,11 +487,7 @@
   </footer>
 
   <script>
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
     document.querySelectorAll('a, button').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('expanded'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('expanded'));
     });
 
     // TOC active state on scroll
@@ -405,6 +503,20 @@
       });
     }, { rootMargin: '-20% 0px -70% 0px' });
     sections.forEach(s => observer.observe(s));
+
+    // Specificity toggle
+    const btnFull = document.getElementById('btn-full');
+    const btnConcise = document.getElementById('btn-concise');
+    btnFull.addEventListener('click', () => {
+      document.querySelectorAll('.full-content').forEach(el => el.style.display = 'block');
+      document.querySelectorAll('.concise-content').forEach(el => el.style.display = 'none');
+      btnFull.classList.add('active'); btnConcise.classList.remove('active');
+    });
+    btnConcise.addEventListener('click', () => {
+      document.querySelectorAll('.full-content').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.concise-content').forEach(el => el.style.display = 'block');
+      btnConcise.classList.add('active'); btnFull.classList.remove('active');
+    });
   </script>
 </body>
 </html>

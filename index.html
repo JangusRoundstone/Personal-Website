@@ -45,26 +45,8 @@
       font-family: 'DM Sans', sans-serif;
       font-size: 16px;
       line-height: 1.7;
-      cursor: none;
+      cursor: default;
       overflow-x: hidden;
-    }
-
-    /* ─── Custom cursor ─── */
-    #cursor {
-      position: fixed;
-      top: 0; left: 0;
-      width: 8px; height: 8px;
-      background: var(--accent);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
-    }
-    #cursor.expanded {
-      width: 32px; height: 32px;
-      background: var(--accent);
-      opacity: 0.3;
     }
 
     /* ─── Grain overlay ─── */
@@ -165,11 +147,10 @@
     /* ─── Hero ─── */
     #hero {
       min-height: 100vh;
-      padding: 0 48px;
+      padding: 0 48px 64px 48px;
       display: grid;
       grid-template-columns: 1fr;
       align-items: end;
-      padding-bottom: 64px;
       padding-top: 64px;
       position: relative;
       overflow: hidden;
@@ -205,10 +186,28 @@
       font-family: 'DM Mono', monospace;
       font-size: 10px;
       font-weight: 400;
-      color: var(--accent);
+      color: var(--ink);
       letter-spacing: 0.15em;
       text-transform: uppercase;
       margin-bottom: 24px;
+    }
+
+    .hero-motto {
+      position: absolute;
+      top: 80px;
+      left: 48px;
+      right: 48px;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(72px, 9vw, 128px);
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      z-index: 2;
+    }
+    .hero-motto em {
+      font-style: italic;
+      color: var(--accent);
     }
 
     .hero-name {
@@ -230,7 +229,7 @@
       max-width: 560px;
       font-size: 18px;
       font-weight: 300;
-      color: var(--ink-2);
+      color: var(--ink);
       line-height: 1.65;
     }
     .hero-tagline em {
@@ -1111,22 +1110,22 @@
       gap: 8px;
       text-decoration: none;
       transition: transform 0.2s ease, opacity 0.2s ease;
-      opacity: 0.6;
+      opacity: 1;
     }
     .contact-icon-link:hover {
       transform: translateY(-3px);
-      opacity: 1;
+      opacity: 0.75;
     }
     .contact-icon-link svg {
       width: 28px; height: 28px;
-      fill: var(--ink);
+      fill: #FFFFFF;
     }
     .contact-icon-label {
       font-family: 'DM Mono', monospace;
       font-size: 9px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.8);
       text-align: center;
     }
     .contact-icon-link:hover .contact-icon-label {
@@ -1173,8 +1172,6 @@
 </head>
 <body>
 
-  <!-- Custom cursor -->
-  <div id="cursor"></div>
 
   <!-- ─── Navigation ─── -->
   <nav id="nav">
@@ -1196,16 +1193,16 @@
       aria-hidden="true"
     />
 
+    <p class="hero-motto reveal">Have fun,<br>be <em>different</em></p>
+
     <div class="hero-content">
-      <p class="hero-label reveal">Human Centered Design & Engineering · University of Washington</p>
-      <h1 class="hero-name reveal reveal-delay-1">
-        <span style="white-space:nowrap">Wang Silang</span><br><em>(William)</em>
-      </h1>
-      <p class="hero-tagline reveal reveal-delay-2">
+      <p class="hero-label reveal reveal-delay-1">Human Centered Design & Engineering · University of Washington</p>
+      <h1 class="hero-name reveal reveal-delay-2">William</h1>
+      <p class="hero-tagline reveal reveal-delay-3">
         I design, build and study <em>heads-up computing</em> applications and <em>multimodal AI systems</em> — studying how they <em> augment human perception and cognition </em> for seamless interaction with the digital and physical world and for <em>human flourishing</em>.
       </p>
-      <div class="hero-cta reveal reveal-delay-3">
-        <a href="#publications" class="btn-primary">View Publications</a>
+      <div class="hero-cta reveal reveal-delay-4">
+        <a href="/resume.pdf" class="btn-primary" download="WangSilang_Resume.pdf">Download / View Resume</a>
         <a href="#contact" class="btn-secondary">Get in Touch</a>
       </div>
     </div>
@@ -1220,7 +1217,7 @@
       <div>
         <div class="about-body reveal reveal-delay-2">
           <p>
-            My journey in human-computer interaction (HCI) started with the reading of <em>"The Singularity is Near"</em> in the last year of my primary school in China, after which I asked my parents to send me abroad for a less conservative education. After a few days of <em>hunger strike</em>, followed by memorizing all the vocabulary in 6 American primary school English textbooks in one month,  <em>I left for Singapore alone to stay with my aunt</em>. In my first year living abroad, <em>search engine and electronic dictionary</em> helped me make sense of the new English environment. They became my best friend, nurtured my interests in STEM and arts, and helped me find my home away from home. 
+            My journey in human-computer interaction (HCI) started with the reading of <em>"The Singularity is Near"</em> in the last year of my primary school in China, after which I asked my parents to send me abroad for a less conservative education. After a few days of <em>hunger strike</em>, followed by memorizing all the vocabulary in six American primary school English textbooks in one month,  <em>I left for Singapore alone to stay with my aunt</em>. In my first year living abroad, <em>search engine and electronic dictionary</em> helped me make sense of the new English environment. They became my best friend, nurtured my interests in STEM and arts, and helped me find my home away from home. 
           </p>
           <p>
             Nowadays, when I look back at that period of teenage rebellion, I couldn’t help but wonder: what would have happened had my journey taken place 100 years earlier, without modern technologies? And how would another child’s act of defiance unfold 100 years later? Will they reflect on their thoughts and habits captured by their wearable AI companion and plan their future with it, or will they simply rely on AI to tell them what to do based on their past behaviours? How can we design mixed-initiative wearable AI systems that understand users’ explicit and implicit behaviours to support and augment their cognition for human flourishing? How will the interaction with such wearable AI systems look like in the future? 
@@ -1434,7 +1431,7 @@
 
     <div class="contact-grid">
       <h2 class="contact-heading reveal reveal-delay-1">
-        Have fun,<br>be <em>different</em>
+        Let's<br><em>connect</em>
       </h2>
 
       <div class="contact-icons reveal reveal-delay-2">
@@ -1459,10 +1456,10 @@
           <span class="contact-icon-label">LinkedIn</span>
         </a>
         <!-- CV -->
-        <div class="contact-icon-link" style="cursor:default; opacity:0.35;">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16zm0-6h4v1.5H8V10z"/></svg>
-          <span class="contact-icon-label">CV<br>upon request</span>
-        </div>
+        <a href="/resume.pdf" class="contact-icon-link" download="WangSilang_CV.pdf">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="fill:#FFFFFF;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16zm0-6h4v1.5H8V10z"/></svg>
+          <span class="contact-icon-label">CV</span>
+        </a>
       </div>
     </div>
   </section>
@@ -1497,17 +1494,6 @@
   </div>
 
   <script>
-    // ── Custom cursor
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top  = e.clientY + 'px';
-    });
-    document.querySelectorAll('a, button').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('expanded'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('expanded'));
-    });
-
     // ── Nav scroll
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
