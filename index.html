@@ -160,16 +160,21 @@
       position: absolute;
       right: 0;
       bottom: 0;
-      height: 100%;
-      max-width: 55%;
+      height: 52vh;
+      width: 42vw;
       object-fit: cover;
       object-position: center top;
       opacity: 1;
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 25%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.9) 100%);
-      mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 25%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.9) 100%);
+      -webkit-mask-image:
+        linear-gradient(to bottom, transparent 0%, black 14%),
+        linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 22%, black 58%);
+      -webkit-mask-composite: source-in;
+      mask-image:
+        linear-gradient(to bottom, transparent 0%, black 14%),
+        linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 22%, black 58%);
+      mask-composite: intersect;
       pointer-events: none;
       z-index: 1;
-      mix-blend-mode: screen;
     }
 
     .hero-content {
@@ -1187,7 +1192,7 @@
   <!-- ─── Hero ─── -->
   <section id="hero">
     <img
-      src="images/william_hero.png"
+      src="images/william_hero_2.jpg"
       class="hero-portrait"
       alt=""
       aria-hidden="true"
