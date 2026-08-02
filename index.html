@@ -1168,7 +1168,13 @@
       .nav-links { gap: 14px; }
       .nav-links a { font-size: 10px; letter-spacing: 0.04em; }
       section { padding: 72px 24px; }
-      #hero { padding: 0 0 48px; }
+      #hero {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: stretch;
+        padding: 0 0 48px;
+      }
 
       /* Full-bleed portrait, no fade */
       .hero-portrait {
@@ -1199,19 +1205,20 @@
       .nav-links a { color: #fff; }
       .nav-links a::after { background: #fff; }
 
-      /* "Have fun, Be different" → top-right corner, larger to fill space */
+      /* "Have fun, Be different" → in-flow above hero-content, left-aligned, white/yellow */
       .hero-motto {
-        top: 80px;
-        right: 16px;
-        left: auto;
-        width: 43%;
+        position: static;
+        top: auto; right: auto; left: auto;
+        width: auto;
         text-align: left;
-        font-size: clamp(30px, 9vw, 46px);
+        font-size: clamp(32px, 8.5vw, 48px);
         line-height: 1.05;
         z-index: 3;
-        color: #000;
+        color: #fff;
+        padding: 0 24px;
+        margin-bottom: 10px;
       }
-      .hero-motto em { color: #000; }
+      .hero-motto em { color: var(--accent); }
 
       /* Hero content — keep default gold/yellow colors, just ensure visibility */
       .hero-content { position: relative; z-index: 3; padding: 0 24px; }
@@ -1286,7 +1293,7 @@
           <p>
             Looking back, I often wonder how much of that journey was shaped not only by my own determination, but also by modern technologies and the tech ecosystem that quietly supported it. What would my experience have been like a century earlier, before such tools existed? And what might it look like a century from now, when multimodal AI systems or agents live on our body or co-exist with us in our daily life? 
           <p>
-            With these questions in mind, I am now pursuing my master degree in the Human Centered Design & Engineering (HCDE) program at University of Washington (UW). Before UW, I completed my bachelor's degree in computer engineering with first class honours at National University of Singapore (NUS), where I conducted HCI research on wearables, heads-up computing and applied AI/ML in <a href="https://www.comp.nus.edu.sg/~peh/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);">Professor Li-Shiuan Peh's</a> group and <a href="https://www.shengdongzhao.com/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);">Professor Zhao Shengdong's</a> group. I also served as the assistant to CEO at a Singaporean start-up building a Singaporean sign language LLM for a smartphone-based two-way sign language translation application, and co-founded another start-up for mixed-reality based physical education for local secondary school and junior college students in Singapore.
+            Since then, I have pursued these questions by designing and building interactive systems spanning wearables, multimodal AI, AR/VR and architecture, treating them as scientific instruments for exploring the future of human-computer and human-AI interaction. My path has led me to the University of Washington, where I am pursuing a Master's degree in Human Centered Design & Engineering (HCDE). Previously, at the National University of Singapore, I have been fortunate to conduct HCI research on wearables, heads-up computing, and applied AI/ML under <a href="https://www.comp.nus.edu.sg/~peh/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);">Professor Li-Shiuan Peh</a> and <a href="https://www.shengdongzhao.com/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);">Professor Zhao Shengdong</a>. Beyond academia, I worked with startups applying AI to sign language translation and adopting mixed reality for physical education, experiences that further reinforced my interest in translating emerging technologies into human-centered interactive systems.
           </p>
           <p>
             Outside the lab, I play survival horror games like the <span class="re-highlight" id="re-series-link">Resident Evil series</span>, tour distinct architecture in the US like the <span class="spl-text">Seattle Public Library<span class="spl-tooltip"><img src="images/Seattle%20Public%20Library.jpeg" alt="Seattle Public Library" /></span></span>, and think a lot about <span class="cli-text" id="cli-trigger">how long will it take for GUI to become the next CLI.</span>
