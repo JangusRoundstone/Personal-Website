@@ -1194,17 +1194,23 @@
         pointer-events: none;
       }
 
-      /* "Have fun, be different" → top-left, all white */
+      /* "Have fun, be different" → top-right corner, text left-aligned, all white */
       .hero-motto {
         top: 80px;
-        left: 24px;
-        right: auto;
+        right: 20px;
+        left: auto;
+        width: 55%;
         text-align: left;
         font-size: clamp(28px, 8vw, 44px);
         z-index: 3;
         color: #fff;
       }
       .hero-motto em { color: #fff; }
+
+      /* Nav white on mobile (over photo) */
+      .nav-logo { color: #fff; }
+      .nav-links a { color: #fff; }
+      .nav-links a::after { background: #fff; }
 
       /* All hero text white over photo */
       .hero-content { position: relative; z-index: 3; padding: 0 24px; }
