@@ -1194,32 +1194,33 @@
         pointer-events: none;
       }
 
-      /* "Have fun, be different" → top-right corner, text left-aligned, all white */
-      .hero-motto {
-        top: 80px;
-        right: 20px;
-        left: auto;
-        width: 55%;
-        text-align: left;
-        font-size: clamp(28px, 8vw, 44px);
-        z-index: 3;
-        color: #fff;
-      }
-      .hero-motto em { color: #fff; }
-
       /* Nav white on mobile (over photo) */
       .nav-logo { color: #fff; }
       .nav-links a { color: #fff; }
       .nav-links a::after { background: #fff; }
 
-      /* All hero text white over photo */
+      /* "Have fun, Be different" → top-right corner, small enough to clear the face */
+      .hero-motto {
+        top: 80px;
+        right: 16px;
+        left: auto;
+        width: 36%;
+        text-align: left;
+        font-size: clamp(17px, 5vw, 26px);
+        line-height: 1.1;
+        z-index: 3;
+        color: #fff;
+      }
+      .hero-motto em { color: #fff; }
+
+      /* All hero text white */
       .hero-content { position: relative; z-index: 3; padding: 0 24px; }
       #hero .reveal { opacity: 1 !important; transform: none !important; }
       .hero-name { font-size: clamp(36px, 10vw, 56px); color: #fff; }
       .hero-name span { color: #fff !important; }
+      .hero-label { color: rgba(255,255,255,0.75); }
       .hero-tagline { max-width: 100%; font-size: 15px; margin-top: 16px; color: #fff; }
       .hero-tagline em { color: #fff; }
-      .hero-label { color: rgba(255,255,255,0.75); }
       .hero-cta { flex-direction: column; align-items: flex-start; gap: 12px; margin-top: 28px; }
 
       footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
@@ -1256,7 +1257,7 @@
       aria-hidden="true"
     />
 
-    <p class="hero-motto reveal">Have fun,<br>be <em>different</em></p>
+    <p class="hero-motto reveal">Have fun,<br>Be <em>different</em></p>
 
     <div class="hero-content">
       <p class="hero-label reveal reveal-delay-1">Human Centered Design & Engineering · University of Washington</p>
