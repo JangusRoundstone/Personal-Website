@@ -1,0 +1,130 @@
+/* ─────────────────────────────────────────────────────────────
+   Project pages — shared theme
+   Loaded after each page's own <style> so it brings every case
+   study in line with the landing page: monochrome palette,
+   Josefin Sans headings / DM Sans text, and the same 1170px
+   reading column and type sizes (after judithamores.com).
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  --accent:   #FFFFFF;
+  --accent-l: #FFFFFF;
+  --gold:     #FFFFFF;
+  --border:   #2A2A2A;
+  --font-head: 'Josefin Sans', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --gutter: max(20px, calc((100vw - 1170px) / 2));
+  --spring: cubic-bezier(0.22, 1.2, 0.36, 1);
+}
+
+body { font-family: var(--font-body); }
+::selection { background: #fff; color: #000; }
+
+/* ─── Header: same look as the landing page ─── */
+nav { padding: 0 48px; border-bottom-color: rgba(255,255,255,0.08); }
+.nav-back {
+  font-family: var(--font-head); font-size: 11px; font-weight: 400;
+  letter-spacing: 0.08em; color: rgba(255,255,255,0.72);
+}
+.nav-back:hover, .nav-back:focus-visible { color: #fff; }
+.nav-logo {
+  font-family: var(--font-head); font-size: 13px; font-weight: 400;
+  letter-spacing: 0.2em; color: #fff;
+}
+.nav-logo:hover { color: rgba(255,255,255,0.7); }
+.nav-back:focus-visible, .nav-logo:focus-visible { outline: 1px solid rgba(255,255,255,0.6); outline-offset: 6px; }
+.nav-back:active, .nav-logo:active { color: rgba(255,255,255,0.5); }
+
+/* ─── Reading column ─── */
+.page-header,
+.proj-layout,
+.proj-hero,
+.proj-content {
+  max-width: none;
+  margin-left: 0; margin-right: 0;
+  padding-left: var(--gutter); padding-right: var(--gutter);
+}
+.proj-image-section { padding-left: var(--gutter); padding-right: var(--gutter); }
+.proj-body { max-width: 640px; }
+.proj-content { grid-template-columns: minmax(0, 640px) minmax(0, 360px); justify-content: space-between; }
+
+/* ─── Headings ─── */
+.page-header h1,
+.proj-hero-title {
+  font-family: var(--font-head);
+  font-size: clamp(32px, 3.4vw, 44px);
+  font-weight: 400; line-height: 1.15; letter-spacing: 0.01em;
+}
+.section-title, .sub-heading {
+  font-family: var(--font-head); font-weight: 400; letter-spacing: 0.01em;
+}
+.sub-heading { font-size: 24px; }
+.sub-heading::before { font-family: var(--font-head); font-size: 12px; font-weight: 600; color: #fff; }
+
+/* ─── Text ─── */
+.page-header .subtitle,
+.proj-hero-desc { font-size: 20px; font-weight: 400; line-height: 1.67; max-width: 640px; }
+.section-body,
+.numbered-list li,
+.dash-list li,
+.count-list li,
+.cs-item,
+.concise-content p,
+.proj-body { font-size: 18px; font-weight: 400; line-height: 1.67; }
+.section-body strong, .dash-list li strong, .count-list li strong,
+.proj-body strong, .sidebar-block-value strong { color: #fff; font-weight: 600; }
+.meta-cell-value, .sidebar-block-value { font-size: 14px; font-weight: 400; line-height: 1.67; }
+
+/* ─── Labels (formerly yellow → bold white) ─── */
+.page-header .year-tag,
+.proj-meta,
+.section-label,
+.cs-label,
+.numbered-list li .num,
+.official-link {
+  font-family: var(--font-head); font-weight: 600; color: #fff;
+}
+.page-header .year-tag, .proj-meta, .section-label { font-size: 11px; }
+.cs-label { font-size: 11px; letter-spacing: 0.15em; }
+.page-header .year-tag span, .proj-meta span { color: var(--ink-3); font-weight: 400; }
+.proj-body em { font-family: inherit; font-size: inherit; color: #fff; font-weight: 600; }
+
+/* Other small caps labels */
+.meta-cell-label, .toc-label, .sidebar-block-label, .spec-toggle-label,
+.toc a, .spec-btn, .img-caption, .footer-copy {
+  font-family: var(--font-head);
+}
+.meta-cell-label, .toc-label, .sidebar-block-label, .spec-toggle-label { font-size: 10px; }
+.img-caption { font-size: 12px; }
+.toc a:hover, .toc a.active { color: #fff; border-left-color: #fff; }
+.toc a:focus-visible, .spec-btn:focus-visible, .official-link:focus-visible { outline: 1px solid rgba(255,255,255,0.6); outline-offset: 3px; }
+.spec-btn:hover { border-color: #fff; color: #fff; }
+.spec-btn:active { transform: scale(0.97); }
+.official-link:hover { color: rgba(255,255,255,0.7); }
+
+/* Role tags: monochrome */
+.contrib-tag,
+.contrib-tag.xr, .contrib-tag.pm, .contrib-tag.bci, .contrib-tag.ix, .contrib-tag.ur {
+  font-family: var(--font-head); color: #fff; background: transparent;
+  border-color: rgba(255,255,255,0.3);
+}
+
+/* Image tint was warm/yellow */
+.proj-image-wrap::after { background: linear-gradient(to top, rgba(0,0,0,0.25) 0%, transparent 50%); }
+
+/* ─── Footer ─── */
+footer { padding-left: var(--gutter); padding-right: var(--gutter); border-top-color: rgba(255,255,255,0.08); }
+
+@media (max-width: 900px) {
+  .proj-layout { padding-left: var(--gutter); padding-right: var(--gutter); }
+  .page-header { padding-left: var(--gutter); padding-right: var(--gutter); }
+  .toc a:hover, .toc a.active { border-left-color: transparent; border-bottom-color: #fff; }
+}
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .proj-hero, .proj-content, .proj-image-section { padding-left: var(--gutter); padding-right: var(--gutter); }
+  .proj-content { grid-template-columns: 1fr; }
+}
+
+/* Role tags under the hero description need breathing room */
+.proj-hero .contrib-tags { margin-top: 24px; }
