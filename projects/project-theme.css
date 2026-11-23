@@ -128,3 +128,25 @@ footer { padding-left: var(--gutter); padding-right: var(--gutter); border-top-c
 
 /* Role tags under the hero description need breathing room */
 .proj-hero .contrib-tags { margin-top: 24px; }
+
+/* Phones: clear the fixed 64px header so the year/category line is visible */
+@media (max-width: 900px) {
+  .page-header { padding-top: 104px; }
+}
+
+/* ─── Demo video at the top of a project page ─── */
+.page-video {
+  padding: 104px var(--gutter) 0;       /* clears the fixed 64px header */
+}
+.page-video .video-inner {
+  position: relative; width: 100%; aspect-ratio: 16 / 9; background: #0a0a0a;
+}
+.page-video .video-inner iframe {
+  position: absolute; inset: 0; width: 100%; height: 100%; border: none;
+}
+.page-video .img-caption { margin-top: 12px; }
+/* The header follows the video, so it no longer needs room for the nav */
+.page-video + .page-header { padding-top: 56px; }
+@media (max-width: 900px) {
+  .page-video + .page-header { padding-top: 40px; }
+}
